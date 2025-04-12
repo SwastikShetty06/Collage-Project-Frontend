@@ -50,7 +50,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                'Sing Up',
+                'Sign Up',
                 style: TextStyle(
                   fontSize: 28, // Increase font size
                   fontWeight: FontWeight.bold,
