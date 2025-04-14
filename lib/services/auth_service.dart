@@ -10,7 +10,6 @@ class AuthService {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'email': email, 'password': password}),
     );
-
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
@@ -26,12 +25,11 @@ class AuthService {
       Uri.parse('$baseUrl/register'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'fullName': name, // Changed from 'name' to 'fullName'
+        'fullName': name,
         'email': email,
         'password': password,
       }),
     );
-
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
@@ -40,27 +38,41 @@ class AuthService {
 
   Future<Map<String, dynamic>?> fetchProfile(int id) async {
     final response = await http.get(Uri.parse('$baseUrl/profile/$id'));
-
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
     return null;
   }
 
-  Future<bool> changePassword(int id, String newPassword) async {
+  Future<Map<String, dynamic>> changePassword(
+    int userId,
+    String newPassword,
+  ) async {
     final response = await http.put(
-      // Updated endpoint URL to match the UserController mapping
-      Uri.parse('http://10.0.2.2:8080/api/user/$id/password'),
+      Uri.parse('http://10.0.2.2:8080/api/user/$userId/password'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'newPassword': newPassword}),
     );
-    return response.statusCode == 200;
+    return jsonDecode(response.body);
   }
 
   Future<bool> deleteUser(int id) async {
     final response = await http.delete(
       Uri.parse('$baseUrl/delete/$id'),
       headers: {'Content-Type': 'application/json'},
+    );
+    return response.statusCode == 200;
+  }
+
+  Future<bool> updateProfile(Map<String, dynamic> profile) async {
+    final response = await http.put(
+      Uri.parse('http://10.0.2.2:8080/api/user/update/${profile['id']}'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'collegeName': profile['collegeName'],
+        'universityName': profile['universityName'],
+        'courseName': profile['courseName'],
+      }),
     );
     return response.statusCode == 200;
   }
