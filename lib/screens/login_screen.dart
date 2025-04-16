@@ -4,7 +4,6 @@ import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -23,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   void initState() {
     super.initState();
-    // Animation controller for fade effect.
     _fadeController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
@@ -135,6 +133,17 @@ class _LoginScreenState extends State<LoginScreen>
                                 color: Colors.white,
                               )
                               : const Text('Login'),
+                    ),
+                    const SizedBox(height: 12),
+                    // New button for Forgot Password
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/forgot_password');
+                      },
+                      child: const Text(
+                        "Forgot Password?",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                     const SizedBox(height: 12),
                     TextButton(

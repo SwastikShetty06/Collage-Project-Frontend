@@ -3,7 +3,6 @@ import '../services/auth_service.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
-
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
@@ -14,6 +13,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  // New controller for Best Friend's Name
+  final _bestFriendController = TextEditingController();
+
   bool _isLoading = false;
   String _error = '';
 
@@ -40,6 +42,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _bestFriendController.dispose();
     super.dispose();
   }
 
@@ -53,6 +56,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
       _nameController.text.trim(),
       _emailController.text.trim(),
       _passwordController.text.trim(),
+      _bestFriendController.text.trim(), // New field sent to backend
     );
 
     setState(() => _isLoading = false);
@@ -121,6 +125,15 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                         prefixIcon: Icon(Icons.lock),
                       ),
                       obscureText: true,
+                    ),
+                    const SizedBox(height: 16),
+                    // New field for best friend's name
+                    TextField(
+                      controller: _bestFriendController,
+                      decoration: const InputDecoration(
+                        labelText: 'Best Friend\'s Name',
+                        prefixIcon: Icon(Icons.favorite),
+                      ),
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(

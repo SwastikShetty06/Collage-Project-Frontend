@@ -20,6 +20,7 @@ class AuthService {
     String name,
     String email,
     String password,
+    String bestFriendName,
   ) async {
     final response = await http.post(
       Uri.parse('$baseUrl/register'),
@@ -28,6 +29,7 @@ class AuthService {
         'fullName': name,
         'email': email,
         'password': password,
+        'bestFriendName': bestFriendName,
       }),
     );
     if (response.statusCode == 200) {
@@ -120,5 +122,22 @@ class AuthService {
       print('Error Response: ${response.body}');
       throw Exception('Failed to search users');
     }
+  }
+
+  Future<Map<String, dynamic>> forgotPassword(
+    String email,
+    String bestFriendName,
+    String newPassword,
+  ) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/forgot-password'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'email': email,
+        'bestFriendName': bestFriendName,
+        'newPassword': newPassword,
+      }),
+    );
+    return jsonDecode(response.body);
   }
 }
