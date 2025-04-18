@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
 class UsersScreen extends StatefulWidget {
-  const UsersScreen({Key? key}) : super(key: key);
+  final String userId;
+  const UsersScreen({Key? key, required this.userId}) : super(key: key);
 
   @override
   _UsersScreenState createState() => _UsersScreenState();
@@ -10,18 +11,20 @@ class UsersScreen extends StatefulWidget {
 
 class _UsersScreenState extends State<UsersScreen>
     with SingleTickerProviderStateMixin {
+  late final int loggedInUserId;
   final AuthService _authService = AuthService();
   List<dynamic> _profiles = [];
   List<dynamic> _filteredProfiles = [];
+  List<int> followedUserIds = [];
   bool _isLoading = true;
-  TextEditingController _searchController = TextEditingController();
-
+  final TextEditingController _searchController = TextEditingController();
   late final AnimationController _fadeController;
   late final Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
+    loggedInUserId = int.parse(widget.userId);
     _fadeController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
@@ -40,34 +43,62 @@ class _UsersScreenState extends State<UsersScreen>
     super.dispose();
   }
 
-  // Fetch all profiles from the backend
-  void _fetchProfiles() async {
-    final profiles = await _authService.getAllProfiles();
-    setState(() {
-      _profiles = profiles;
-      _filteredProfiles = profiles;
-      _isLoading = false;
+  Future<void> _fetchProfiles() async {
+    // show loader immediately
+    if (!mounted) return;
+    setState(() => _isLoading = true);
+
+    try {
+      final profiles = await _authService.getAllProfiles();
+      final followed = await _authService.getFollowedUsers(loggedInUserId);
+
+      if (!mounted) return;
+      setState(() {
+        _profiles = profiles;
+        _filteredProfiles = profiles;
+        followedUserIds = followed.map<int>((u) => u['id'] as int).toList();
+        _isLoading = false;
+      });
       _fadeController.forward();
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to load users: $e')),
+      );
+    }
+  }
+
+  void _searchProfiles(String query) {
+    setState(() {
+      _filteredProfiles = _profiles.where((p) {
+        return (p['fullName']?.contains(query) ?? false) ||
+            (p['email']?.contains(query) ?? false) ||
+            (p['universityName']?.contains(query) ?? false) ||
+            (p['collegeName']?.contains(query) ?? false) ||
+            (p['courseName']?.contains(query) ?? false);
+      }).toList();
     });
   }
 
-  // Handle search functionality
-  void _searchProfiles(String query) {
-    setState(() {
-      _filteredProfiles =
-          _profiles.where((profile) {
-            return (profile['fullName'] != null &&
-                    profile['fullName'].contains(query)) ||
-                (profile['email'] != null &&
-                    profile['email'].contains(query)) ||
-                (profile['universityName'] != null &&
-                    profile['universityName'].contains(query)) ||
-                (profile['collegeName'] != null &&
-                    profile['collegeName'].contains(query)) ||
-                (profile['courseName'] != null &&
-                    profile['courseName'].contains(query));
-          }).toList();
-    });
+  /// Now returns a Future so we can `return` early if unmounted.
+  Future<void> _toggleFollow(int profileId) async {
+    try {
+      if (followedUserIds.contains(profileId)) {
+        await _authService.unfollowUser(loggedInUserId, profileId);
+        if (!mounted) return;
+        setState(() => followedUserIds.remove(profileId));
+      } else {
+        await _authService.followUser(loggedInUserId, profileId);
+        if (!mounted) return;
+        setState(() => followedUserIds.add(profileId));
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
 
   @override
@@ -75,57 +106,59 @@ class _UsersScreenState extends State<UsersScreen>
     return Scaffold(
       appBar: AppBar(title: const Text('User Profiles')),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Search Users',
-                border: const OutlineInputBorder(),
-                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.search),
               ),
               onChanged: _searchProfiles,
             ),
             const SizedBox(height: 10),
-            _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Expanded(
-                  child: FadeTransition(
-                    opacity: _fadeAnimation,
-                    child: ListView.builder(
-                      itemCount: _filteredProfiles.length,
-                      itemBuilder: (context, index) {
-                        final profile = _filteredProfiles[index];
-                        return Card(
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+            if (_isLoading)
+              const Center(child: CircularProgressIndicator())
+            else
+              Expanded(
+                child: FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: ListView.builder(
+                    itemCount: _filteredProfiles.length,
+                    itemBuilder: (ctx, i) {
+                      final p = _filteredProfiles[i];
+                      final isFollowing = followedUserIds.contains(p['id']);
+                      return Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 8),
+                        child: ListTile(
+                          leading: const Icon(Icons.account_circle, size: 40),
+                          title: Text(p['fullName']),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Email: ${p['email']}'),
+                              Text('College: ${p['collegeName']}'),
+                              Text('University: ${p['universityName']}'),
+                              Text('Course: ${p['courseName']}'),
+                            ],
                           ),
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 6,
-                            horizontal: 8,
+                          trailing: ElevatedButton(
+                            onPressed: () => _toggleFollow(p['id']),
+                            child: Text(isFollowing ? 'Unfollow' : 'Follow'),
                           ),
-                          child: ListTile(
-                            leading: const Icon(Icons.account_circle, size: 40),
-                            title: Text(profile['fullName']),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Email: ${profile['email']}'),
-                                Text('College: ${profile['collegeName']}'),
-                                Text(
-                                  'University: ${profile['universityName']}',
-                                ),
-                                Text('Course: ${profile['courseName']}'),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ),
+              ),
           ],
         ),
       ),

@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:2:5-33:19
+INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:4:5-35:19
 INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml
 MERGED from [androidx.window:window:1.2.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/5093ab42d2307deb2d7ac0b7f5718c38/transformed/jetified-window-1.2.0/AndroidManifest.xml:22:5-29:19
 MERGED from [androidx.window:window:1.2.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/5093ab42d2307deb2d7ac0b7f5718c38/transformed/jetified-window-1.2.0/AndroidManifest.xml:22:5-29:19
@@ -21,8 +21,8 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/swas
 	android:name
 		INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml
 manifest
-ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:1:1-45:12
-MERGED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:1:1-45:12
+ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:1:1-47:12
+MERGED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:1:1-47:12
 INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml:1:1-7:12
 INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml:1:1-7:12
 INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml:1:1-7:12
@@ -60,22 +60,24 @@ MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] /Users/swastikshetty/.grad
 		INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:1:11-69
-queries
-ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:39:5-44:15
-intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
-ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:40:9-43:18
-action#android.intent.action.PROCESS_TEXT
-ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:41:13-72
-	android:name
-		ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:41:21-70
-data
-ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:42:13-50
-	android:mimeType
-		ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:42:19-48
 uses-permission#android.permission.INTERNET
-ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml:6:5-66
+ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:2:1-62
+MERGED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:2:1-62
+MERGED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:2:1-62
 	android:name
-		ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml:6:22-64
+		ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:2:18-60
+queries
+ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:41:5-46:15
+intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
+ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:42:9-45:18
+action#android.intent.action.PROCESS_TEXT
+ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:43:13-72
+	android:name
+		ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:43:21-70
+data
+ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:44:13-50
+	android:mimeType
+		ADDED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/AndroidManifest.xml:44:19-48
 uses-sdk
 INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml

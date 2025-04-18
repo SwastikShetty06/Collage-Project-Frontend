@@ -5,15 +5,26 @@ class AuthService {
   static const String baseUrl = 'http://10.0.2.2:8080/api/auth';
 
   Future<Map<String, dynamic>?> login(String email, String password) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/login'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'email': email, 'password': password}),
-    );
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email, 'password': password}),
+      );
+
+      if (response.statusCode == 200) {
+        // If the response is successful (status code 200), return the response body
+        return jsonDecode(response.body);
+      } else {
+        // If the status code is not 200, handle the error
+        // Assuming the server sends an error message in the body (e.g., "Invalid email or password")
+        final errorResponse = jsonDecode(response.body);
+        throw Exception(errorResponse['message'] ?? 'Login failed');
+      }
+    } catch (e) {
+      // In case of network issues or other errors, return the error message
+      return {'error': e.toString()};
     }
-    return null;
   }
 
   Future<Map<String, dynamic>?> register(
@@ -139,5 +150,53 @@ class AuthService {
       }),
     );
     return jsonDecode(response.body);
+  }
+
+  // Follow user function
+  Future<void> followUser(int followerId, int followedId) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8080/api/user/$followerId/follow/$followedId'),
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to follow user');
+    }
+  }
+
+  // Unfollow user function
+  Future<void> unfollowUser(int followerId, int followedId) async {
+    final url =
+        'http://10.0.2.2:8080/api/user/$followerId/unfollow/$followedId';
+    print('Attempting to unfollow at $url');
+    final response = await http.delete(Uri.parse(url));
+    print('Unfollow response: ${response.statusCode} — ${response.body}');
+    if (response.statusCode != 200 ||
+        response.body.toLowerCase().contains('failed')) {
+      throw Exception(
+        'Failed to unfollow user: ${response.statusCode} ${response.body}',
+      );
+    }
+  }
+
+  // Get followed users
+  Future<List<dynamic>> getFollowedUsers(int userId) async {
+    final url = 'http://10.0.2.2:8080/api/user/$userId/following';
+    print('Fetching followed users from: $url');
+
+    final response = await http.get(Uri.parse(url));
+
+    print('Status code: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      final decoded = jsonDecode(response.body);
+      print('Decoded response: $decoded');
+      return decoded;
+    } else if (response.statusCode == 204) {
+      // No content means no followed users
+      print('No followed users found.');
+      return []; // Return empty list
+    } else {
+      throw Exception('Failed to load followed users: ${response.statusCode}');
+    }
   }
 }

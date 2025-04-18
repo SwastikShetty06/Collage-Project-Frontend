@@ -4,6 +4,7 @@ import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -44,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen>
   void _login() async {
     setState(() {
       _isLoading = true;
-      _error = '';
+      _error = ''; // Reset the error message
     });
 
     final email = _emailController.text.trim();
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen>
 
     setState(() => _isLoading = false);
 
-    if (result != null) {
+    if (result != null && result['error'] == null) {
       final profile = await _authService.fetchProfile(result['id']);
       if (profile != null && mounted) {
         Navigator.pushReplacement(
@@ -68,8 +69,11 @@ class _LoginScreenState extends State<LoginScreen>
         });
       }
     } else {
+      // Handle the case where there was an error returned from the server
       setState(() {
-        _error = 'Login failed. Please check your credentials and try again.';
+        _error =
+            result?['error'] ??
+            'Login failed. Please check your credentials and try again.';
       });
     }
   }
@@ -104,6 +108,7 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                     ),
                     const SizedBox(height: 16),
+                    // Show error message if there is any
                     if (_error.isNotEmpty)
                       Text(_error, style: const TextStyle(color: Colors.red)),
                     const SizedBox(height: 10),

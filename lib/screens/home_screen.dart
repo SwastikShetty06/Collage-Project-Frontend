@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_frontend/screens/following_screen.dart';
 import 'profile_screen.dart';
-import 'users_screen.dart';
+import 'users_screen.dart'; // Import FollowingScreen
 
 class HomeScreen extends StatefulWidget {
   final String userId;
@@ -19,7 +20,11 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _screens = [ProfileScreen(userId: widget.userId), const UsersScreen()];
+    _screens = [
+      ProfileScreen(userId: widget.userId),
+      UsersScreen(userId: widget.userId), // pass it here
+      FollowingScreen(userId: widget.userId), // Pass userId to FollowingScreen
+    ];
     _pageController = PageController(initialPage: _selectedIndex);
   }
 
@@ -53,6 +58,10 @@ class HomeScreenState extends State<HomeScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
           BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Users'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Following',
+          ),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
