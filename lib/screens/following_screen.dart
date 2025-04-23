@@ -13,11 +13,10 @@ class FollowingScreen extends StatefulWidget {
 class _FollowingScreenState extends State<FollowingScreen> {
   final AuthService _authService = AuthService();
   bool _isLoading = true;
-  bool _showFollowing = true; // Toggle state
+  bool _showFollowing = true;
   String _error = '';
   List<dynamic> _users = [];
-  Set<int> _actionUserIds =
-      {}; // Used for showing loading indicator on action buttons
+  Set<int> _actionUserIds = {};
 
   @override
   void initState() {
@@ -26,6 +25,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
   }
 
   Future<void> _loadUsers() async {
+    if (!mounted) return;
     setState(() {
       _isLoading = true;
       _error = '';
@@ -38,11 +38,11 @@ class _FollowingScreenState extends State<FollowingScreen> {
               ? await _authService.getFollowedUsers(id)
               : await _authService.getFollowers(id);
 
+      if (!mounted) return;
       setState(() {
         _users = users;
         _isLoading = false;
 
-        // If no followers
         if (_users.isEmpty) {
           _error =
               _showFollowing
@@ -51,20 +51,20 @@ class _FollowingScreenState extends State<FollowingScreen> {
         }
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
-        // If there's an error and it's a "Nobody is following you" message
-        if (e.toString().contains("Nobody is following you")) {
-          _error = "Nobody is following you";
-        } else {
-          _error = 'Failed to load data. Please try again.';
-        }
+        _error =
+            e.toString().contains("Nobody is following you")
+                ? "Nobody is following you"
+                : 'Failed to load data. Please try again.';
       });
       print('Error loading users: $e');
     }
   }
 
   Future<void> _unfollowUser(int otherUserId) async {
+    if (!mounted) return;
     setState(() {
       _actionUserIds.add(otherUserId);
     });
@@ -73,10 +73,12 @@ class _FollowingScreenState extends State<FollowingScreen> {
       await _authService.unfollowUser(int.parse(widget.userId), otherUserId);
       await _loadUsers();
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Failed to unfollow user: $e')));
     } finally {
+      if (!mounted) return;
       setState(() {
         _actionUserIds.remove(otherUserId);
       });

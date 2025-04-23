@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend/screens/following_screen.dart';
 import 'profile_screen.dart';
-import 'users_screen.dart'; // Import FollowingScreen
+import 'users_screen.dart';
+import 'browse_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String userId;
@@ -22,8 +23,9 @@ class HomeScreenState extends State<HomeScreen> {
     super.initState();
     _screens = [
       ProfileScreen(userId: widget.userId),
-      UsersScreen(userId: widget.userId), // pass it here
-      FollowingScreen(userId: widget.userId), // Pass userId to FollowingScreen
+      UsersScreen(userId: widget.userId),
+      FollowingScreen(userId: widget.userId),
+      BrowseScreen(userId: widget.userId),
     ];
     _pageController = PageController(initialPage: _selectedIndex);
   }
@@ -50,21 +52,47 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        physics:
-            const NeverScrollableScrollPhysics(), // Prevent swipe navigation if needed
+        physics: const NeverScrollableScrollPhysics(),
         children: _screens,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Users'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Following',
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: Offset(0, -1),
+            ),
+          ],
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            selectedItemColor: Colors.deepPurple,
+            unselectedItemColor: Colors.grey,
+            selectedFontSize: 14,
+            unselectedFontSize: 12,
+            type: BottomNavigationBarType.fixed,
+            elevation: 8,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Users'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Following',
+              ),
+              BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Browse'),
+            ],
           ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

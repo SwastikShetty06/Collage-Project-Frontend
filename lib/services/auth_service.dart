@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:dio/dio.dart';
 
 class AuthService {
   static const String baseUrl = 'http://10.0.2.2:8080/api/auth';
@@ -211,5 +213,57 @@ class AuthService {
     } else {
       throw Exception('Failed to load followers');
     }
+  }
+
+  final Dio _dio = Dio(BaseOptions(baseUrl: 'http://10.0.2.2:8080'));
+
+  Future<List<dynamic>> fetchRandom() async {
+    final res = await _dio.get('/api/notes/random');
+    return res.data as List;
+  }
+
+  Future<List<dynamic>> search(String q) async {
+    final res = await _dio.get(
+      '/api/notes/search',
+      queryParameters: {'query': q},
+    );
+    return res.data as List;
+  }
+
+  Future<void> upload(
+    File file,
+    String title,
+    String keywords,
+    String userId,
+  ) async {
+    try {
+      FormData form = FormData.fromMap({
+        'file': await MultipartFile.fromFile(file.path),
+        'title': title,
+        'keywords': keywords,
+        'userId': userId,
+      });
+
+      Response res = await _dio.post(
+        '/api/notes/upload',
+        data: form,
+        options: Options(
+          responseType: ResponseType.plain, // 🛠️ fix added here
+        ),
+      );
+
+      print('Upload response: ${res.data}');
+    } catch (e) {
+      throw Exception('Upload failed: $e');
+    }
+  }
+
+  Future<List<dynamic>> fetchAllNotes({int page = 0, int size = 100}) async {
+    final response = await _dio.get(
+      '/api/notes/all',
+      queryParameters: {'page': page, 'size': size},
+    );
+    print('📥 Received ${response.data.length} notes');
+    return response.data as List;
   }
 }
