@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
+import 'dart:math';
 
 class ProfileScreen extends StatefulWidget {
   final String userId;
@@ -21,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool _isLoading = false;
   bool _isEditing = false; // Flag to toggle between viewing and editing profile
-  String _message = '';
+  String _message = ''; // Error message
 
   @override
   void initState() {
@@ -50,6 +51,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  Color _generateRandomColor() {
+    Random random = Random();
+    return Color.fromRGBO(
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
+      1,
+    );
+  }
+
   void _toggleEditMode() {
     setState(() {
       _isEditing = !_isEditing;
@@ -58,8 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _collegeController.text = _user?['collegeName'] ?? '';
         _universityController.text = _user?['universityName'] ?? '';
         _courseController.text = _user?['courseName'] ?? '';
-        _passwordController
-            .clear(); // Clear the password field when exiting edit mode
+        _passwordController.clear(); // Clear password field when not editing
       }
     });
   }
@@ -100,6 +110,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       _message = success ? 'Profile updated!' : 'Failed to update profile.';
     });
+
+    if (success) {
+      // After updating, fetch the updated profile data
+      _loadUserData();
+    }
   }
 
   void _logout() {
@@ -116,171 +131,176 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start, // Left-align everything
-                    children: [
-                      Card(
-                        elevation: 6,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Welcome, ${_user?['fullName'] ?? ''}',
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Colors.deepPurple, // Make name stand out
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'Email: ${_user?['email'] ?? ''}',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      // Profile edit area, shown when editing
-                      if (_isEditing) ...[
-                        TextField(
-                          controller: _collegeController,
-                          decoration: const InputDecoration(
-                            labelText: 'College Name',
-                            prefixIcon: Icon(Icons.school),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _universityController,
-                          decoration: const InputDecoration(
-                            labelText: 'University Name',
-                            prefixIcon: Icon(Icons.account_balance),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _courseController,
-                          decoration: const InputDecoration(
-                            labelText: 'Course Name',
-                            prefixIcon: Icon(Icons.book),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Avatar Section
+                        CircleAvatar(
+                          radius: 60,
+                          backgroundColor: _generateRandomColor(),
+                          child: Text(
+                            _user?['fullName'][0] ?? '',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: _updateProfile,
-                          child: const Text('Update Profile'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 12,
-                            ),
-                            backgroundColor: Colors.green,
-                            foregroundColor:
-                                Colors
-                                    .white, // Give a deeper purple for the button
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _passwordController,
-                          decoration: const InputDecoration(
-                            labelText: 'New Password',
-                            prefixIcon: Icon(Icons.lock_outline),
-                          ),
-                          obscureText: true,
-                        ),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: _changePassword,
-                          child: const Text('Change Password'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 12,
-                            ),
-                            backgroundColor: Colors.red,
-                            foregroundColor:
-                                Colors
-                                    .white, // Highlight password change button
-                          ),
-                        ),
-                      ] else ...[
-                        // Display profile details when not in edit mode
+                        // User Name and Email
                         Text(
-                          'College: ${_user?['collegeName'] ?? 'N/A'}',
-                          style: const TextStyle(fontSize: 16),
+                          'Welcome, ${_user?['fullName'] ?? ''}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'University: ${_user?['universityName'] ?? 'N/A'}',
-                          style: const TextStyle(fontSize: 16),
+                          'Email: ${_user?['email'] ?? ''}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[700],
+                          ),
                         ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Course: ${_user?['courseName'] ?? 'N/A'}',
-                          style: const TextStyle(fontSize: 16),
+                        const SizedBox(height: 20),
+                        // Profile Edit Section
+                        if (_isEditing) ...[
+                          // Error Message
+                          if (_message.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                _message,
+                                style: TextStyle(
+                                  color:
+                                      _message.contains('updated') ||
+                                              _message.contains('success')
+                                          ? Colors.green
+                                          : Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          // Text Fields for Editing Profile
+                          _buildTextField(_collegeController, 'College Name'),
+                          _buildTextField(
+                            _universityController,
+                            'University Name',
+                          ),
+                          _buildTextField(_courseController, 'Course Name'),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: _updateProfile,
+                            child: const Text('Update Profile'),
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 50,
+                                vertical: 12,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          // Change Password Section
+                          _buildTextField(
+                            _passwordController,
+                            'New Password',
+                            obscure: true,
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: _changePassword,
+                            child: const Text('Change Password'),
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 50,
+                                vertical: 12,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                        ] else ...[
+                          // Display Profile Details when not in edit mode
+                          Text('College: ${_user?['collegeName'] ?? 'N/A'}'),
+                          const SizedBox(height: 8),
+                          Text(
+                            'University: ${_user?['universityName'] ?? 'N/A'}',
+                          ),
+                          const SizedBox(height: 8),
+                          Text('Course: ${_user?['courseName'] ?? 'N/A'}'),
+                        ],
+                        const SizedBox(height: 20),
+                        // Edit Profile and Logout buttons side by side
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: _toggleEditMode,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 50,
+                                  vertical: 12,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: Text(
+                                _isEditing ? 'Exit Edit' : 'Edit Profile',
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            ElevatedButton(
+                              onPressed: _logout,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 50,
+                                  vertical: 12,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: const Text('Logout'),
+                            ),
+                          ],
                         ),
                       ],
-                      const SizedBox(height: 20),
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 500),
-                        child:
-                            _message.isNotEmpty
-                                ? Text(
-                                  _message,
-                                  key: ValueKey(_message),
-                                  style: TextStyle(
-                                    color:
-                                        _message.contains('updated') ||
-                                                _message.contains('success')
-                                            ? Colors.green
-                                            : Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                                : const SizedBox.shrink(),
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: _toggleEditMode,
-                        child: Text(
-                          _isEditing ? 'Cancel Edit' : 'Edit Profile',
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 12,
-                          ),
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.white,
-                        ),
-                        // Make button noticeable
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: _logout,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 12,
-                          ),
-                        ),
-                        child: const Text('Logout'),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
+      ),
+    );
+  }
+
+  // Helper function to build text fields
+  Widget _buildTextField(
+    TextEditingController controller,
+    String label, {
+    bool obscure = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: TextField(
+        controller: controller,
+        obscureText: obscure,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          prefixIcon: const Icon(Icons.edit),
+        ),
       ),
     );
   }
