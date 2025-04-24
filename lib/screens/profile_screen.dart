@@ -21,8 +21,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _courseController = TextEditingController();
 
   bool _isLoading = false;
-  bool _isEditing = false; // Flag to toggle between viewing and editing profile
-  String _message = ''; // Error message
+  bool _isEditing = false;
+  String _message = '';
 
   @override
   void initState() {
@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Color _generateRandomColor() {
-    Random random = Random();
+    final random = Random();
     return Color.fromRGBO(
       random.nextInt(256),
       random.nextInt(256),
@@ -65,11 +65,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       _isEditing = !_isEditing;
       if (!_isEditing) {
-        // Reset the fields if exiting edit mode
         _collegeController.text = _user?['collegeName'] ?? '';
         _universityController.text = _user?['universityName'] ?? '';
         _courseController.text = _user?['courseName'] ?? '';
-        _passwordController.clear(); // Clear password field when not editing
+        _passwordController.clear();
       }
     });
   }
@@ -112,7 +111,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
 
     if (success) {
-      // After updating, fetch the updated profile data
       _loadUserData();
     }
   }
@@ -126,19 +124,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Profile')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(top: 30, left: 16, right: 16),
         child:
             _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
-                  child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 120, bottom: 120),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Avatar Section
+                        // Avatar
                         CircleAvatar(
-                          radius: 60,
+                          radius: 50,
                           backgroundColor: _generateRandomColor(),
                           child: Text(
                             _user?['fullName'][0] ?? '',
@@ -150,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        // User Name and Email
+                        // Name & Email
                         Text(
                           'Welcome, ${_user?['fullName'] ?? ''}',
                           style: const TextStyle(
@@ -167,9 +176,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        // Profile Edit Section
+
+                        // Edit Mode Fields
                         if (_isEditing) ...[
-                          // Error Message
                           if (_message.isNotEmpty)
                             Padding(
                               padding: const EdgeInsets.only(bottom: 10),
@@ -185,7 +194,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                             ),
-                          // Text Fields for Editing Profile
                           _buildTextField(_collegeController, 'College Name'),
                           _buildTextField(
                             _universityController,
@@ -195,7 +203,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: _updateProfile,
-                            child: const Text('Update Profile'),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 50,
@@ -205,9 +212,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
+                            child: const Text('Update Profile'),
                           ),
                           const SizedBox(height: 16),
-                          // Change Password Section
                           _buildTextField(
                             _passwordController,
                             'New Password',
@@ -216,7 +223,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: _changePassword,
-                            child: const Text('Change Password'),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 50,
@@ -226,9 +232,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
+                            child: const Text('Change Password'),
                           ),
                         ] else ...[
-                          // Display Profile Details when not in edit mode
+                          // Display Mode
                           Text('College: ${_user?['collegeName'] ?? 'N/A'}'),
                           const SizedBox(height: 8),
                           Text(
@@ -237,8 +244,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(height: 8),
                           Text('Course: ${_user?['courseName'] ?? 'N/A'}'),
                         ],
+
                         const SizedBox(height: 20),
-                        // Edit Profile and Logout buttons side by side
+                        // Buttons side by side
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -248,7 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 backgroundColor: Colors.blue,
                                 foregroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 50,
+                                  horizontal: 30,
                                   vertical: 12,
                                 ),
                                 shape: RoundedRectangleBorder(
@@ -266,7 +274,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 backgroundColor: Colors.red,
                                 foregroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 50,
+                                  horizontal: 30,
                                   vertical: 12,
                                 ),
                                 shape: RoundedRectangleBorder(
@@ -285,7 +293,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // Helper function to build text fields
   Widget _buildTextField(
     TextEditingController controller,
     String label, {
