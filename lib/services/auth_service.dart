@@ -15,16 +15,12 @@ class AuthService {
       );
 
       if (response.statusCode == 200) {
-        // If the response is successful (status code 200), return the response body
         return jsonDecode(response.body);
       } else {
-        // If the status code is not 200, handle the error
-        // Assuming the server sends an error message in the body (e.g., "Invalid email or password")
         final errorResponse = jsonDecode(response.body);
         throw Exception(errorResponse['message'] ?? 'Login failed');
       }
     } catch (e) {
-      // In case of network issues or other errors, return the error message
       return {'error': e.toString()};
     }
   }
@@ -92,8 +88,6 @@ class AuthService {
     return response.statusCode == 200;
   }
 
-  // Fetch all profiles
-  // Fetch all profiles
   Future<List<dynamic>> getAllProfiles() async {
     final response = await http.get(
       Uri.parse(
@@ -115,7 +109,6 @@ class AuthService {
     }
   }
 
-  // Search users by different properties (university, course, etc.)
   Future<List<dynamic>> searchUsers(String query) async {
     final response = await http.get(
       Uri.parse(
@@ -154,7 +147,6 @@ class AuthService {
     return jsonDecode(response.body);
   }
 
-  // Follow user function
   Future<void> followUser(int followerId, int followedId) async {
     final response = await http.post(
       Uri.parse('http://10.0.2.2:8080/api/user/$followerId/follow/$followedId'),
@@ -164,7 +156,6 @@ class AuthService {
     }
   }
 
-  // Unfollow user function
   Future<void> unfollowUser(int followerId, int followedId) async {
     final url =
         'http://10.0.2.2:8080/api/user/$followerId/unfollow/$followedId';
@@ -179,7 +170,6 @@ class AuthService {
     }
   }
 
-  // Get followed users
   Future<List<dynamic>> getFollowedUsers(int userId) async {
     final url = 'http://10.0.2.2:8080/api/user/$userId/following';
     print('Fetching followed users from: $url');
@@ -247,9 +237,7 @@ class AuthService {
       Response res = await _dio.post(
         '/api/notes/upload',
         data: form,
-        options: Options(
-          responseType: ResponseType.plain, // 🛠️ fix added here
-        ),
+        options: Options(responseType: ResponseType.plain),
       );
 
       print('Upload response: ${res.data}');
