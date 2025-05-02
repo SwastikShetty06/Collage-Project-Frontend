@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
     final formattedDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
 
     return Scaffold(
-      backgroundColor: Colors.blue[800],
+      backgroundColor: Colors.blue[800], // Set background to blue
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -64,7 +64,8 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 'Hi $_userName!',
                                 style: const TextStyle(
-                                  color: Colors.white,
+                                  color:
+                                      Colors.white, // White text for greeting
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -72,7 +73,9 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(height: 8),
                               Text(
                                 formattedDate,
-                                style: TextStyle(color: Colors.blue[100]),
+                                style: TextStyle(
+                                  color: Colors.blue[100],
+                                ), // Lighter blue text for date
                               ),
                             ],
                           ),
@@ -80,12 +83,14 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.blue[600],
+                              color:
+                                  Colors
+                                      .blue[600], // Blue background for the notification icon
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(
                               Icons.notifications,
-                              color: Colors.white,
+                              color: Colors.white, // White icon color
                             ),
                           ),
                         ],
@@ -98,34 +103,45 @@ class _HomePageState extends State<HomePage> {
                           vertical: 12,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.blue[600],
+                          color:
+                              Colors
+                                  .blue[600], // Blue background for search bar
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Row(
                           children: const [
-                            Icon(Icons.search, color: Colors.white),
+                            Icon(
+                              Icons.search,
+                              color: Colors.white,
+                            ), // White search icon
                             SizedBox(width: 8),
                             Text(
                               'Search',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                color: Colors.white,
+                              ), // White text for the search label
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 25),
-                      // Question
+                      // Question row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
                           Text(
                             'How do you feel about studying?',
                             style: TextStyle(
-                              color: Colors.white,
+                              color:
+                                  Colors.white, // White text for the question
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Icon(Icons.more_horiz, color: Colors.white),
+                          Icon(
+                            Icons.more_horiz,
+                            color: Colors.white,
+                          ), // White icon
                         ],
                       ),
                       const SizedBox(height: 25),
@@ -139,7 +155,9 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(height: 8),
                               Text(
                                 'Bad',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ), // White text for 'Bad'
                               ),
                             ],
                           ),
@@ -149,7 +167,9 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(height: 8),
                               Text(
                                 'Boring',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ), // White text for 'Boring'
                               ),
                             ],
                           ),
@@ -159,7 +179,9 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(height: 8),
                               Text(
                                 'Sleepy',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ), // White text for 'Sleepy'
                               ),
                             ],
                           ),
@@ -169,7 +191,9 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(height: 8),
                               Text(
                                 'Enthusiastic',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ), // White text for 'Enthusiastic'
                               ),
                             ],
                           ),

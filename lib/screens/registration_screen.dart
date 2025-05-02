@@ -3,17 +3,16 @@ import '../services/auth_service.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
+
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen>
-    with SingleTickerProviderStateMixin {
+class _RegistrationScreenState extends State<RegistrationScreen> with SingleTickerProviderStateMixin {
   final AuthService _authService = AuthService();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  // New controller for Best Friend's Name
   final _bestFriendController = TextEditingController();
 
   bool _isLoading = false;
@@ -71,7 +70,10 @@ class _RegistrationScreenState extends State<RegistrationScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register')),
+      appBar: AppBar(
+        title: const Text('Register'),
+        backgroundColor: Colors.blue, // Set AppBar color to blue
+      ),
       body: FadeTransition(
         opacity: _fadeAnimation,
         child: Center(
@@ -95,13 +97,14 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 6, 90, 159),
+                        color: Colors.blue, // Title text color set to blue
                       ),
                     ),
                     const SizedBox(height: 16),
                     if (_error.isNotEmpty)
                       Text(_error, style: const TextStyle(color: Colors.red)),
                     const SizedBox(height: 10),
+                    // Name field
                     TextField(
                       controller: _nameController,
                       decoration: const InputDecoration(
@@ -110,6 +113,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       ),
                     ),
                     const SizedBox(height: 16),
+                    // Email field
                     TextField(
                       controller: _emailController,
                       decoration: const InputDecoration(
@@ -118,6 +122,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       ),
                     ),
                     const SizedBox(height: 16),
+                    // Password field
                     TextField(
                       controller: _passwordController,
                       decoration: const InputDecoration(
@@ -127,7 +132,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       obscureText: true,
                     ),
                     const SizedBox(height: 16),
-                    // New field for best friend's name
+                    // Best friend's name field
                     TextField(
                       controller: _bestFriendController,
                       decoration: const InputDecoration(
@@ -136,15 +141,26 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       ),
                     ),
                     const SizedBox(height: 24),
+                    // Register button
                     ElevatedButton(
                       onPressed: _isLoading ? null : _register,
-                      child:
-                          _isLoading
-                              ? const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              )
-                              : const Text('Register'),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            )
+                          : const Text('Register'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue, // Button background set to blue
+                        foregroundColor: Colors.white, // Text color set to white
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 50,
+                          vertical: 12,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                     ),
                   ],
                 ),

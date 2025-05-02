@@ -71,7 +71,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Forgot Password')),
+      appBar: AppBar(
+        title: const Text('Forgot Password'),
+        backgroundColor: Colors.blue,  // AppBar color set to blue
+      ),
       body: FadeTransition(
         opacity: _fadeAnimation,
         child: Center(
@@ -95,6 +98,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
+                        color: Colors.blue,  // Title color set to blue
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -102,7 +106,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                       controller: _emailController,
                       decoration: const InputDecoration(
                         labelText: 'Email',
-                        prefixIcon: Icon(Icons.email),
+                        prefixIcon: Icon(Icons.email, color: Colors.blue),  // Icon color set to blue
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -110,7 +114,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                       controller: _bestFriendController,
                       decoration: const InputDecoration(
                         labelText: 'Best Friend\'s Name',
-                        prefixIcon: Icon(Icons.favorite),
+                        prefixIcon: Icon(Icons.favorite, color: Colors.blue),  // Icon color set to blue
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -118,30 +122,32 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                       controller: _newPasswordController,
                       decoration: const InputDecoration(
                         labelText: 'New Password',
-                        prefixIcon: Icon(Icons.lock_outline),
+                        prefixIcon: Icon(Icons.lock_outline, color: Colors.blue),  // Icon color set to blue
                       ),
                       obscureText: true,
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: _isLoading ? null : _forgotPassword,
-                      child:
-                          _isLoading
-                              ? const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              )
-                              : const Text('Submit'),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            )
+                          : const Text('Submit'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,  // Button color set to blue
+                        foregroundColor: Colors.white,  // Button text color set to white
+                      ),
                     ),
                     const SizedBox(height: 16),
                     if (_message.isNotEmpty)
                       Text(
                         _message,
                         style: TextStyle(
-                          color:
-                              _message.contains("successfully")
-                                  ? Colors.green
-                                  : Colors.red,
+                          color: _message.contains("successfully")
+                              ? Colors.green
+                              : Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

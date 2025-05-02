@@ -73,7 +73,7 @@ class NavigationScreenState extends State<NavigationScreen> {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
           child: BottomNavigationBar(
             backgroundColor: Colors.white,
-            selectedItemColor: Colors.deepPurple,
+            selectedItemColor: Colors.blue, // Changed to blue for selected item
             unselectedItemColor: Colors.grey,
             selectedFontSize: 14,
             unselectedFontSize: 12,

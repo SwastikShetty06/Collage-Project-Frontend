@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Note Sharing App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.blue, // Updated to a single color (blue)
         fontFamily: 'Roboto',
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(

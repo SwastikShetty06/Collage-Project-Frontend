@@ -166,7 +166,7 @@ class _BrowseScreenState extends State<BrowseScreen> {
                           Icon(
                             isImage ? Icons.image : Icons.picture_as_pdf,
                             size: 40,
-                            color: Colors.deepPurple,
+                            color: Colors.blue, // Updated to the primary color
                           ),
                           const SizedBox(height: 12),
                           Text(
@@ -197,6 +197,9 @@ class _BrowseScreenState extends State<BrowseScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToUpload,
         child: const Icon(Icons.upload_file),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        // Floating action button color
       ),
     );
   }

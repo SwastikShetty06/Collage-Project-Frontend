@@ -122,7 +122,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
+      appBar: AppBar(
+        title: const Text('Profile'),
+        backgroundColor: Colors.blue, // Set the AppBar color to blue
+      ),
       body: Padding(
         padding: const EdgeInsets.only(top: 30, left: 16, right: 16),
         child:
@@ -211,6 +214,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
+                              backgroundColor: Colors.blue,
+                              foregroundColor:
+                                  Colors.white, // Button color set to blue
                             ),
                             child: const Text('Update Profile'),
                           ),
@@ -231,6 +237,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
+                              backgroundColor: Colors.blue,
+                              foregroundColor: Colors.white,
                             ),
                             child: const Text('Change Password'),
                           ),

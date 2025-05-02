@@ -45,18 +45,28 @@ class DocumentViewScreen extends StatelessWidget {
         fileUrl.toLowerCase().endsWith('.jpg');
 
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: Colors.blue, // Updated to blue for consistent theme
+      ),
       body: Center(
         child:
             isImage
                 ? Image.network(
-                  'http://10.0.2.2:8080$fileUrl',
-                ) // Fixed emulator path
-                : const Icon(Icons.picture_as_pdf, size: 100),
+                  'http://10.0.2.2:8080$fileUrl', // Fixed emulator path
+                )
+                : const Icon(
+                  Icons.picture_as_pdf,
+                  size: 100,
+                  color: Colors.blue,
+                ), // Blue icon for consistency
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _downloadFile,
         child: const Icon(Icons.download),
+        backgroundColor: Colors.blue,
+        foregroundColor:
+            Colors.white, // Floating action button color to match theme
       ),
     );
   }

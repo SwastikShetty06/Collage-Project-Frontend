@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
@@ -9,8 +10,7 @@ class UsersScreen extends StatefulWidget {
   _UsersScreenState createState() => _UsersScreenState();
 }
 
-class _UsersScreenState extends State<UsersScreen>
-    with SingleTickerProviderStateMixin {
+class _UsersScreenState extends State<UsersScreen> with SingleTickerProviderStateMixin {
   late final int loggedInUserId;
   final AuthService _authService = AuthService();
   List<dynamic> _profiles = [];
@@ -81,7 +81,6 @@ class _UsersScreenState extends State<UsersScreen>
     });
   }
 
-  /// Now returns a Future so we can `return` early if unmounted.
   Future<void> _toggleFollow(int profileId) async {
     try {
       if (followedUserIds.contains(profileId)) {
@@ -104,7 +103,10 @@ class _UsersScreenState extends State<UsersScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User Profiles')),
+      appBar: AppBar(
+        title: const Text('User Profiles'),
+        backgroundColor: Colors.blue, // AppBar color set to blue
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -114,7 +116,7 @@ class _UsersScreenState extends State<UsersScreen>
               decoration: const InputDecoration(
                 labelText: 'Search Users',
                 border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: Icon(Icons.search, color: Colors.blue), // Blue icon for search
               ),
               onChanged: _searchProfiles,
             ),
@@ -135,10 +137,9 @@ class _UsersScreenState extends State<UsersScreen>
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 8),
+                        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                         child: ListTile(
-                          leading: const Icon(Icons.account_circle, size: 40),
+                          leading: const Icon(Icons.account_circle, size: 40, color: Colors.blue), // Blue icon
                           title: Text(p['fullName']),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,6 +152,10 @@ class _UsersScreenState extends State<UsersScreen>
                           ),
                           trailing: ElevatedButton(
                             onPressed: () => _toggleFollow(p['id']),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: isFollowing ? Colors.red : Colors.blue, // Blue for follow, Red for unfollow
+                              foregroundColor: Colors.white,
+                            ),
                             child: Text(isFollowing ? 'Unfollow' : 'Follow'),
                           ),
                         ),

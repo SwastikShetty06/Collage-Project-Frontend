@@ -66,7 +66,10 @@ class _UploadScreenState extends State<UploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Upload Document')),
+      appBar: AppBar(
+        title: const Text('Upload Document'),
+        backgroundColor: Colors.blue,  // Set AppBar color to blue
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -75,6 +78,10 @@ class _UploadScreenState extends State<UploadScreen> {
               onPressed: _pickFile,
               icon: const Icon(Icons.attach_file),
               label: const Text("Pick Document"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,  // Set button background color to blue
+                foregroundColor: Colors.white,  // Set button text color to white
+              ),
             ),
             if (_file != null)
               Padding(
@@ -87,7 +94,11 @@ class _UploadScreenState extends State<UploadScreen> {
             const SizedBox(height: 20),
             TextField(
               controller: _titleCtrl,
-              decoration: const InputDecoration(labelText: 'Title'),
+              decoration: const InputDecoration(
+                labelText: 'Title',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.title),
+              ),
             ),
             const SizedBox(height: 16),
             ...List.generate(
@@ -96,21 +107,35 @@ class _UploadScreenState extends State<UploadScreen> {
                 padding: const EdgeInsets.only(bottom: 12),
                 child: TextField(
                   controller: _keywordCtrls[i],
-                  decoration: InputDecoration(labelText: 'Keyword ${i + 1}'),
+                  decoration: InputDecoration(
+                    labelText: 'Keyword ${i + 1}',
+                    border: OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.search),
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _isUploading ? null : _upload,
-              child:
-                  _isUploading
-                      ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                      : const Text('Upload'),
+              child: _isUploading
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Text('Upload'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,  // Set button background color to blue
+                foregroundColor: Colors.white,// Set button text color to white
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50,
+                  vertical: 12,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
           ],
         ),

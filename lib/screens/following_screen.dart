@@ -88,7 +88,10 @@ class _FollowingScreenState extends State<FollowingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Connections')),
+      appBar: AppBar(
+        title: const Text('Connections'),
+        backgroundColor: Colors.blue,  // Updated to blue for consistency
+      ),
       body: Column(
         children: [
           const SizedBox(height: 10),
@@ -101,6 +104,9 @@ class _FollowingScreenState extends State<FollowingScreen> {
               _loadUsers();
             },
             borderRadius: BorderRadius.circular(12),
+            color: Colors.blue,  // Ensure toggle buttons also reflect the theme color
+            selectedColor: Colors.white,  // Selected text color for toggle
+            fillColor: Colors.blueAccent,  // Background color for selected state
             children: const [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
@@ -114,78 +120,77 @@ class _FollowingScreenState extends State<FollowingScreen> {
           ),
           const SizedBox(height: 10),
           Expanded(
-            child:
-                _isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : _users.isEmpty
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : _users.isEmpty
                     ? Center(
-                      child: Text(
-                        _error,
-                        style: const TextStyle(fontSize: 16),
-                        textAlign: TextAlign.center,
-                      ),
-                    )
+                        child: Text(
+                          _error,
+                          style: const TextStyle(fontSize: 16),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
                     : RefreshIndicator(
-                      onRefresh: _loadUsers,
-                      child: ListView.builder(
-                        itemCount: _users.length,
-                        itemBuilder: (context, index) {
-                          final user = _users[index];
-                          final userId = user['id'];
+                        onRefresh: _loadUsers,
+                        child: ListView.builder(
+                          itemCount: _users.length,
+                          itemBuilder: (context, index) {
+                            final user = _users[index];
+                            final userId = user['id'];
 
-                          return Card(
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            margin: const EdgeInsets.symmetric(
-                              vertical: 6,
-                              horizontal: 8,
-                            ),
-                            child: ListTile(
-                              leading: const Icon(
-                                Icons.account_circle,
-                                size: 40,
+                            return Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              title: Text(user['fullName']),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Email: ${user['email']}'),
-                                  if (user['collegeName'] != null)
-                                    Text('College: ${user['collegeName']}'),
-                                  if (user['universityName'] != null)
-                                    Text(
-                                      'University: ${user['universityName']}',
-                                    ),
-                                  if (user['courseName'] != null)
-                                    Text('Course: ${user['courseName']}'),
-                                ],
+                              margin: const EdgeInsets.symmetric(
+                                vertical: 6,
+                                horizontal: 8,
                               ),
-                              trailing:
-                                  _showFollowing
-                                      ? (_actionUserIds.contains(userId)
-                                          ? const SizedBox(
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.account_circle,
+                                  size: 40,
+                                  color: Colors.blue,  // Updated icon color
+                                ),
+                                title: Text(user['fullName']),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Email: ${user['email']}'),
+                                    if (user['collegeName'] != null)
+                                      Text('College: ${user['collegeName']}'),
+                                    if (user['universityName'] != null)
+                                      Text(
+                                        'University: ${user['universityName']}',
+                                      ),
+                                    if (user['courseName'] != null)
+                                      Text('Course: ${user['courseName']}'),
+                                  ],
+                                ),
+                                trailing: _showFollowing
+                                    ? (_actionUserIds.contains(userId)
+                                        ? const SizedBox(
                                             width: 20,
                                             height: 20,
                                             child: CircularProgressIndicator(
                                               strokeWidth: 2,
                                             ),
                                           )
-                                          : IconButton(
+                                        : IconButton(
                                             icon: const Icon(
                                               Icons.person_remove,
                                               color: Colors.red,
                                             ),
-                                            onPressed:
-                                                () => _unfollowUser(userId),
+                                            onPressed: () =>
+                                                _unfollowUser(userId),
                                           ))
-                                      : null,
-                            ),
-                          );
-                        },
+                                    : null,
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ),
           ),
         ],
       ),

@@ -9,8 +9,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with SingleTickerProviderStateMixin {
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
   final AuthService _authService = AuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -60,8 +59,7 @@ class _LoginScreenState extends State<LoginScreen>
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder:
-                (context) => NavigationScreen(userId: result['id'].toString()),
+            builder: (context) => NavigationScreen(userId: result['id'].toString()),
           ),
         );
       } else {
@@ -72,9 +70,7 @@ class _LoginScreenState extends State<LoginScreen>
     } else {
       // Handle the case where there was an error returned from the server
       setState(() {
-        _error =
-            result?['error'] ??
-            'Login failed. Please check your credentials and try again.';
+        _error = result?['error'] ?? 'Login failed. Please check your credentials and try again.';
       });
     }
   }
@@ -82,7 +78,10 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(
+        title: const Text('Login'),
+        backgroundColor: Colors.blue, // Set the AppBar color to blue
+      ),
       body: FadeTransition(
         opacity: _fadeAnimation,
         child: Center(
@@ -94,10 +93,7 @@ class _LoginScreenState extends State<LoginScreen>
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 32,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -106,6 +102,7 @@ class _LoginScreenState extends State<LoginScreen>
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
+                        color: Colors.blue, // Blue text for the welcome message
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -117,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen>
                       controller: _emailController,
                       decoration: const InputDecoration(
                         labelText: 'Email',
-                        prefixIcon: Icon(Icons.email),
+                        prefixIcon: Icon(Icons.email, color: Colors.blue), // Set the icon color to blue
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -125,20 +122,23 @@ class _LoginScreenState extends State<LoginScreen>
                       controller: _passwordController,
                       decoration: const InputDecoration(
                         labelText: 'Password',
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: Icon(Icons.lock, color: Colors.blue), // Set the icon color to blue
                       ),
                       obscureText: true,
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: _isLoading ? null : _login,
-                      child:
-                          _isLoading
-                              ? const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              )
-                              : const Text('Login'),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            )
+                          : const Text('Login'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue, // Set the button color to blue
+                        foregroundColor: Colors.white, // Set the button text color to white
+                      ),
                     ),
                     const SizedBox(height: 12),
                     // New button for Forgot Password
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen>
                       },
                       child: const Text(
                         "Forgot Password?",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue), // Blue text for forgot password
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -158,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen>
                       },
                       child: const Text(
                         "Don't have an account? Register here.",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue), // Blue text for register
                       ),
                     ),
                   ],
