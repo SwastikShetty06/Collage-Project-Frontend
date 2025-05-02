@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_frontend/screens/home_page.dart';
 import 'screens/login_screen.dart';
 import 'screens/registration_screen.dart';
 import 'screens/navigation_screen.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Note Sharing App',
       debugShowCheckedModeBanner: false,
+      home: HomePage(),
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         fontFamily: 'Roboto',

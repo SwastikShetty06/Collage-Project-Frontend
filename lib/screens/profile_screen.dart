@@ -5,7 +5,7 @@ import 'dart:math';
 class ProfileScreen extends StatefulWidget {
   final String userId;
 
-  const ProfileScreen({Key? key, required this.userId}) : super(key: key);
+  const ProfileScreen({super.key, required this.userId});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();

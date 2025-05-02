@@ -63,21 +63,22 @@ class _UsersScreenState extends State<UsersScreen>
     } catch (e) {
       if (!mounted) return;
       setState(() => _isLoading = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to load users: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to load users: $e')));
     }
   }
 
   void _searchProfiles(String query) {
     setState(() {
-      _filteredProfiles = _profiles.where((p) {
-        return (p['fullName']?.contains(query) ?? false) ||
-            (p['email']?.contains(query) ?? false) ||
-            (p['universityName']?.contains(query) ?? false) ||
-            (p['collegeName']?.contains(query) ?? false) ||
-            (p['courseName']?.contains(query) ?? false);
-      }).toList();
+      _filteredProfiles =
+          _profiles.where((p) {
+            return (p['fullName']?.contains(query) ?? false) ||
+                (p['email']?.contains(query) ?? false) ||
+                (p['universityName']?.contains(query) ?? false) ||
+                (p['collegeName']?.contains(query) ?? false) ||
+                (p['courseName']?.contains(query) ?? false);
+          }).toList();
     });
   }
 
@@ -95,9 +96,9 @@ class _UsersScreenState extends State<UsersScreen>
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 
@@ -136,7 +137,9 @@ class _UsersScreenState extends State<UsersScreen>
                           borderRadius: BorderRadius.circular(12),
                         ),
                         margin: const EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 8),
+                          vertical: 6,
+                          horizontal: 8,
+                        ),
                         child: ListTile(
                           leading: const Icon(Icons.account_circle, size: 40),
                           title: Text(p['fullName']),
