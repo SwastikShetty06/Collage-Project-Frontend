@@ -66,6 +66,10 @@ http_parser
 3.4
 file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/http_parser-4.1.2/
 file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/http_parser-4.1.2/lib/
+intl
+2.12
+file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/intl-0.18.1/
+file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/intl-0.18.1/lib/
 leak_tracker
 3.2
 file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/leak_tracker-10.0.8/

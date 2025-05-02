@@ -3,6 +3,7 @@ import 'package:project_frontend/screens/following_screen.dart';
 import 'profile_screen.dart';
 import 'users_screen.dart';
 import 'browse_screen.dart';
+import 'home_page.dart';
 
 class NavigationScreen extends StatefulWidget {
   final String userId;
@@ -22,6 +23,7 @@ class NavigationScreenState extends State<NavigationScreen> {
   void initState() {
     super.initState();
     _screens = [
+      HomePage(userId: widget.userId),
       BrowseScreen(userId: widget.userId),
       UsersScreen(userId: widget.userId),
       FollowingScreen(userId: widget.userId),
@@ -80,6 +82,7 @@ class NavigationScreenState extends State<NavigationScreen> {
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
             items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
               BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Browse'),
               BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Users'),
               BottomNavigationBarItem(

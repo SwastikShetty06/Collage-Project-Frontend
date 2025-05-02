@@ -40,6 +40,7 @@ dependencies:
   open_file: ^3.2.1
   url_launcher: ^6.1.7
   android_intent_plus: ^4.0.2
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
