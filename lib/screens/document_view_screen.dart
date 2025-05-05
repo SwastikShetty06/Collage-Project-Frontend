@@ -42,6 +42,7 @@ class DocumentViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final isImage =
         fileUrl.toLowerCase().endsWith('.png') ||
+        fileUrl.toLowerCase().endsWith('.jpeg') ||
         fileUrl.toLowerCase().endsWith('.jpg');
 
     return Scaffold(

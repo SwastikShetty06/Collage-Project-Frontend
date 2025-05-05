@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.project_frontend.app-mergeDebugResources-29:/values-watch-v21/values-watch-v21.xml",
+            "outputFile": "com.example.project_frontend.app-mergeDebugResources-31:/values-watch-v21/values-watch-v21.xml",
             "map": [
                 {
                     "source": "/Users/swastikshetty/.gradle/caches/8.10.2/transforms/67e431d42222568371fff0afd22bbdc6/transformed/appcompat-1.6.1/res/values-watch-v21/values-watch-v21.xml",

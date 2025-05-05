@@ -138,6 +138,7 @@ class _BrowseScreenState extends State<BrowseScreen> {
                 final title = note['title'] ?? 'Untitled';
                 final isImage =
                     fileUrl.toLowerCase().endsWith('.jpg') ||
+                    fileUrl.toLowerCase().endsWith('.jpeg') ||
                     fileUrl.toLowerCase().endsWith('.png');
 
                 return GestureDetector(

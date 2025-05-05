@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.project_frontend.app-mergeDebugResources-29:/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "com.example.project_frontend.app-mergeDebugResources-31:/values-en-rXC/values-en-rXC.xml",
             "map": [
                 {
                     "source": "/Users/swastikshetty/.gradle/caches/8.10.2/transforms/308a2e77faa557d0bd706972416bde6a/transformed/browser-1.8.0/res/values-en-rXC/values-en-rXC.xml",

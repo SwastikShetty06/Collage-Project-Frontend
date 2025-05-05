@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.project_frontend.app-mergeDebugResources-29:/values-kk/values-kk.xml",
+            "outputFile": "com.example.project_frontend.app-mergeDebugResources-31:/values-kk/values-kk.xml",
             "map": [
                 {
                     "source": "/Users/swastikshetty/.gradle/caches/8.10.2/transforms/308a2e77faa557d0bd706972416bde6a/transformed/browser-1.8.0/res/values-kk/values-kk.xml",

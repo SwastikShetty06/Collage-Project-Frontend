@@ -38,7 +38,9 @@ MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/swastikshetty/.gradle/ca
 MERGED from [:file_picker] /Users/swastikshetty/Desktop/Project/project_frontend/build/file_picker/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-15:12
 MERGED from [:url_launcher_android] /Users/swastikshetty/Desktop/Project/project_frontend/build/url_launcher_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-14:12
 MERGED from [:android_intent_plus] /Users/swastikshetty/Desktop/Project/project_frontend/build/android_intent_plus/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_pdfview] /Users/swastikshetty/Desktop/Project/project_frontend/build/flutter_pdfview/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_plugin_android_lifecycle] /Users/swastikshetty/Desktop/Project/project_frontend/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-7:12
+MERGED from [com.github.mhiew:android-pdf-viewer:3.2.0-beta.3] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/d94c72f88a38f0154bb6439f27ec4f40/transformed/jetified-android-pdf-viewer-3.2.0-beta.3/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.browser:browser:1.8.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/308a2e77faa557d0bd706972416bde6a/transformed/browser-1.8.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.window:window:1.2.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/5093ab42d2307deb2d7ac0b7f5718c38/transformed/jetified-window-1.2.0/AndroidManifest.xml:17:1-31:12
 MERGED from [androidx.window:window-java:1.2.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/c1f85211ae6978d0218d51595a7f7e62/transformed/jetified-window-java-1.2.0/AndroidManifest.xml:17:1-21:12
@@ -72,6 +74,7 @@ MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/swastikshetty/.gradle
 MERGED from [androidx.window.extensions.core:core:1.0.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/47506b70b93177473c53f4d5d7e77c91/transformed/jetified-core-1.0.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/f09a22cdd213028a38958888c7d16e20/transformed/jetified-annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/9e1412f82216e9a99f9f845f4567c1f2/transformed/jetified-relinker-1.4.5/AndroidManifest.xml:2:1-7:12
+MERGED from [com.github.mhiew:pdfium-android:1.9.2] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/73421b5fbca2a7450c9564d9adcf75af/transformed/jetified-pdfium-android-1.9.2/AndroidManifest.xml:2:1-9:12
 	package
 		INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml
 	android:versionName
@@ -116,8 +119,12 @@ MERGED from [:url_launcher_android] /Users/swastikshetty/Desktop/Project/project
 MERGED from [:url_launcher_android] /Users/swastikshetty/Desktop/Project/project_frontend/build/url_launcher_android/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
 MERGED from [:android_intent_plus] /Users/swastikshetty/Desktop/Project/project_frontend/build/android_intent_plus/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
 MERGED from [:android_intent_plus] /Users/swastikshetty/Desktop/Project/project_frontend/build/android_intent_plus/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_pdfview] /Users/swastikshetty/Desktop/Project/project_frontend/build/flutter_pdfview/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_pdfview] /Users/swastikshetty/Desktop/Project/project_frontend/build/flutter_pdfview/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] /Users/swastikshetty/Desktop/Project/project_frontend/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] /Users/swastikshetty/Desktop/Project/project_frontend/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:5:5-44
+MERGED from [com.github.mhiew:android-pdf-viewer:3.2.0-beta.3] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/d94c72f88a38f0154bb6439f27ec4f40/transformed/jetified-android-pdf-viewer-3.2.0-beta.3/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.mhiew:android-pdf-viewer:3.2.0-beta.3] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/d94c72f88a38f0154bb6439f27ec4f40/transformed/jetified-android-pdf-viewer-3.2.0-beta.3/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.browser:browser:1.8.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/308a2e77faa557d0bd706972416bde6a/transformed/browser-1.8.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.browser:browser:1.8.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/308a2e77faa557d0bd706972416bde6a/transformed/browser-1.8.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.window:window:1.2.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/5093ab42d2307deb2d7ac0b7f5718c38/transformed/jetified-window-1.2.0/AndroidManifest.xml:20:5-44
@@ -184,6 +191,8 @@ MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/swastiksh
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/f09a22cdd213028a38958888c7d16e20/transformed/jetified-annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
 MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/9e1412f82216e9a99f9f845f4567c1f2/transformed/jetified-relinker-1.4.5/AndroidManifest.xml:5:5-43
 MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/9e1412f82216e9a99f9f845f4567c1f2/transformed/jetified-relinker-1.4.5/AndroidManifest.xml:5:5-43
+MERGED from [com.github.mhiew:pdfium-android:1.9.2] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/73421b5fbca2a7450c9564d9adcf75af/transformed/jetified-pdfium-android-1.9.2/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.mhiew:pdfium-android:1.9.2] /Users/swastikshetty/.gradle/caches/8.10.2/transforms/73421b5fbca2a7450c9564d9adcf75af/transformed/jetified-pdfium-android-1.9.2/AndroidManifest.xml:5:5-7:41
 	android:targetSdkVersion
 		INJECTED from /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/AndroidManifest.xml
 	android:minSdkVersion

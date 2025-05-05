@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.project_frontend.app-mergeDebugResources-29:/values-hr/values-hr.xml",
+            "outputFile": "com.example.project_frontend.app-mergeDebugResources-31:/values-hr/values-hr.xml",
             "map": [
                 {
                     "source": "/Users/swastikshetty/.gradle/caches/8.10.2/transforms/308a2e77faa557d0bd706972416bde6a/transformed/browser-1.8.0/res/values-hr/values-hr.xml",
