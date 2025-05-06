@@ -1,6 +1,7 @@
 # 📝 Note Sharing App (Flutter)
 
 <!-- PROJECT BADGES -->
+
 [![Flutter Version](https://img.shields.io/badge/Flutter-3.7.x-blue.svg)](https://flutter.dev)  
 [![Dart Version](https://img.shields.io/badge/Dart-2.19-green.svg)](https://dart.dev)  
 [![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/note_sharing_app_flutter/flutter.yml?branch=main)](https://github.com/yourusername/note_sharing_app_flutter/actions)  
@@ -11,49 +12,54 @@
 ---
 
 ## 🎯 Table of Contents
-1. [About](#about)  
-2. [Features](#features)  
-3. [Screenshots](#screenshots)  
-4. [Tech Stack](#tech-stack)  
-5. [Getting Started](#getting-started)  
-   - [Prerequisites](#prerequisites)  
-   - [Install & Run](#install--run)  
-   - [Release Build](#release-build)  
-6. [State Management](#state-management)  
-7. [Folder Structure](#folder-structure)  
-8. [Testing](#testing)  
-9. [Contributing](#contributing)  
-10. [License](#license)  
+
+1. [About](#about)
+2. [Features](#features)
+3. [Screenshots](#screenshots)
+4. [Tech Stack](#tech-stack)
+5. [Getting Started](#getting-started)
+   - [Prerequisites](#prerequisites)
+   - [Install & Run](#install--run)
+   - [Release Build](#release-build)
+6. [State Management](#state-management)
+7. [Folder Structure](#folder-structure)
+8. [Testing](#testing)
+9. [Contributing](#contributing)
+10. [License](#license)
 
 ---
 
 ## 🧐 About
+
 This Flutter frontend powers the Note Sharing App—a platform to upload and discover lecture notes, problem sets, and more. Designed for Android (iOS support planned), it emphasizes smooth infinite scrolling, powerful search, and social features (follow/unfollow).
 
 ---
 
 ## ✨ Features
-- 📤 **Upload** PDFs & images with title & keywords  
-- 🔎 **Search** by title or keywords (infinite scroll)  
-- 👥 **Social**: follow peers & view a personalized feed  
-- 🔄 **Profile**: update college, university, course anytime  
-- ⚡ **Performance**: <2 s load on mid-tier Android devices  
-- 📱 **Responsive UI** built entirely with Flutter widgets  
+
+- 📤 **Upload** PDFs & images with title & keywords
+- 🔎 **Search** by title or keywords (infinite scroll)
+- 👥 **Social**: follow peers & view a personalized feed
+- 🔄 **Profile**: update college, university, course anytime
+- ⚡ **Performance**: <2 s load on mid-tier Android devices
+- 📱 **Responsive UI** built entirely with Flutter widgets
 
 ---
 
 ## 📸 Screenshots
+
 <p align="center">
   <img src="screenshots/Browse.png" alt="Browse Notes" width="180px" style="margin-right: 10px;"/>
   <img src="screenshots/Upload.png" alt="Upload Screen" width="180px" style="margin-right: 10px;"/>
-  <img src="docs/screenshots/View.png" alt="Document View" width="180px"/>
+  <img src="screenshots/View.png" alt="Document View" width="180px"/>
 </p>
 
 ---
 
 ## 🛠 Tech Stack
+
 | Layer        | Technology           |
-|--------------|----------------------|
+| ------------ | -------------------- |
 | UI           | Flutter & Dart       |
 | State Mgmt   | provider             |
 | Networking   | dio                  |
@@ -65,10 +71,12 @@ This Flutter frontend powers the Note Sharing App—a platform to upload and dis
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Flutter 3.7.x & Dart 2.19  
-- Android SDK & emulator or physical device  
+
+- Flutter 3.7.x & Dart 2.19
+- Android SDK & emulator or physical device
 
 ### Install & Run
+
 ```bash
 # 1. Clone frontend repo
 git clone https://github.com/yourusername/note_sharing_app_flutter.git
@@ -128,3 +136,4 @@ git push origin feature/your-feature-name
 Open a Pull Request against main.
 Please follow the Effective Dart style guide.
 
+```
