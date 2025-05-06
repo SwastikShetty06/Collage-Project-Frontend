@@ -4,8 +4,6 @@
 
 [![Flutter Version](https://img.shields.io/badge/Flutter-3.7.x-blue.svg)](https://flutter.dev)  
 [![Dart Version](https://img.shields.io/badge/Dart-2.19-green.svg)](https://dart.dev)  
-[![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/note_sharing_app_flutter/flutter.yml?branch=main)](https://github.com/yourusername/note_sharing_app_flutter/actions)  
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > A mobile-first Flutter application for seamless uploading, browsing, and sharing of study notes.
 
