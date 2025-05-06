@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
 
-class DocumentViewScreen extends StatelessWidget {
+class DocumentViewScreen extends StatefulWidget {
   final String fileUrl;
   final String title;
 
@@ -14,11 +17,59 @@ class DocumentViewScreen extends StatelessWidget {
     required this.title,
   });
 
-  void _downloadFile() async {
-    final safeUrl = fileUrl.startsWith('/') ? fileUrl : '/$fileUrl';
+  @override
+  State<DocumentViewScreen> createState() => _DocumentViewScreenState();
+}
+
+class _DocumentViewScreenState extends State<DocumentViewScreen> {
+  String? localFilePath;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_isPdf(widget.fileUrl)) {
+      _downloadAndSaveFileForPDFView();
+    } else {
+      setState(() => isLoading = false);
+    }
+  }
+
+  bool _isPdf(String url) {
+    return url.toLowerCase().endsWith('.pdf');
+  }
+
+  Future<void> _downloadAndSaveFileForPDFView() async {
+    final safeUrl =
+        widget.fileUrl.startsWith('/') ? widget.fileUrl : '/${widget.fileUrl}';
     final fullUrl = 'http://10.0.2.2:8080$safeUrl';
 
-    print('Attempting to open in Chrome: $fullUrl');
+    try {
+      final response = await http.get(Uri.parse(fullUrl));
+      if (response.statusCode == 200) {
+        final bytes = response.bodyBytes;
+        final dir = await getTemporaryDirectory();
+        final file = File('${dir.path}/temp_doc.pdf');
+        await file.writeAsBytes(bytes);
+        setState(() {
+          localFilePath = file.path;
+          isLoading = false;
+        });
+      } else {
+        throw Exception('Failed to download PDF: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Download error: $e');
+      setState(() => isLoading = false);
+    }
+  }
+
+  void _downloadFile() async {
+    final safeUrl =
+        widget.fileUrl.startsWith('/') ? widget.fileUrl : '/${widget.fileUrl}';
+    final fullUrl = 'http://10.0.2.2:8080$safeUrl';
+
+    print('Launching file in browser: $fullUrl');
 
     if (Platform.isAndroid) {
       final intent = AndroidIntent(
@@ -31,7 +82,7 @@ class DocumentViewScreen extends StatelessWidget {
     } else {
       final uri = Uri.parse(fullUrl);
       if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.platformDefault);
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
       } else {
         throw 'Could not launch file: $uri';
       }
@@ -41,33 +92,36 @@ class DocumentViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isImage =
-        fileUrl.toLowerCase().endsWith('.png') ||
-        fileUrl.toLowerCase().endsWith('.jpeg') ||
-        fileUrl.toLowerCase().endsWith('.jpg');
+        widget.fileUrl.toLowerCase().endsWith('.png') ||
+        widget.fileUrl.toLowerCase().endsWith('.jpeg') ||
+        widget.fileUrl.toLowerCase().endsWith('.jpg');
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        backgroundColor: Colors.blue, // Updated to blue for consistent theme
-      ),
+      appBar: AppBar(title: Text(widget.title), backgroundColor: Colors.blue),
       body: Center(
         child:
-            isImage
-                ? Image.network(
-                  'http://10.0.2.2:8080$fileUrl', // Fixed emulator path
+            isLoading
+                ? const CircularProgressIndicator()
+                : isImage
+                ? Image.network('http://10.0.2.2:8080${widget.fileUrl}')
+                : localFilePath != null
+                ? PDFView(
+                  filePath: localFilePath!,
+                  enableSwipe: true,
+                  autoSpacing: true,
+                  swipeHorizontal: false,
+                  pageFling: true,
+                  onError: (error) => print('PDF error: $error'),
+                  onPageError:
+                      (page, error) => print('Page $page error: $error'),
                 )
-                : const Icon(
-                  Icons.picture_as_pdf,
-                  size: 100,
-                  color: Colors.blue,
-                ), // Blue icon for consistency
+                : const Text('Failed to load document.'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _downloadFile,
         child: const Icon(Icons.download),
         backgroundColor: Colors.blue,
-        foregroundColor:
-            Colors.white, // Floating action button color to match theme
+        foregroundColor: Colors.white,
       ),
     );
   }

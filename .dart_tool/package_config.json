@@ -236,6 +236,42 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "path_provider",
+      "rootUri": "file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/path_provider-2.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "path_provider_android",
+      "rootUri": "file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/path_provider_android-2.2.17",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
+      "name": "path_provider_foundation",
+      "rootUri": "file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "path_provider_linux",
+      "rootUri": "file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "path_provider_platform_interface",
+      "rootUri": "file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "path_provider_windows",
+      "rootUri": "file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "platform",
       "rootUri": "file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/platform-3.1.6",
       "packageUri": "lib/",
@@ -374,13 +410,19 @@
       "languageVersion": "3.7"
     },
     {
+      "name": "xdg_directories",
+      "rootUri": "file:///Users/swastikshetty/.pub-cache/hosted/pub.dev/xdg_directories-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "project_frontend",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-05-05T12:57:52.000313Z",
+  "generated": "2025-05-06T10:12:29.062192Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///Users/swastikshetty/development/flutter",
