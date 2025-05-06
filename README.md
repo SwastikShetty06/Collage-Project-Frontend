@@ -95,17 +95,21 @@ flutter build ios --release
 
 ```
 
-#### 🧠 State Management
+## 🧠 State Management
 
-This project uses the provider package for state management:
+This project uses the `provider` package for state management:
 
-AuthProvider handles user authentication state.
-NoteProvider manages note list, pagination, and search.
-UserProvider manages user profiles and social follow state.
-All providers extend ChangeNotifier and are injected via MultiProvider in main.dart.
+- `AuthProvider` handles user authentication state.
+- `NoteProvider` manages note list, pagination, and search.
+- `UserProvider` manages user profiles and social follow state.
 
-##### 🗂 Folder Structure
+All providers extend `ChangeNotifier` and are injected via `MultiProvider` in `main.dart`.
 
+---
+
+## 🗂 Folder Structure
+
+```plaintext
 lib/
 ├── main.dart          # App entrypoint & MultiProvider setup
 ├── services/          # API service classes (AuthService, NoteService)
@@ -116,8 +120,9 @@ lib/
 assets/
 ├── images/            # Static assets (icons, logos)
 └── configs/           # Config files (env.dart)
+```
 
-###### ✅ Testing
+## ✅ Testing
 
 Unit Tests:
 Services & utility functions using flutter_test and mockito.
@@ -126,7 +131,7 @@ Integration Tests:
 End-to-end flows (login → upload → browse) using integration_test.
 flutter test integration_test
 
-###### 🤝 Contributing
+## 🤝 Contributing
 
 Fork this repository
 Clone your fork:
@@ -139,5 +144,3 @@ Push to your fork:
 git push origin feature/your-feature-name
 Open a Pull Request against main.
 Please follow the Effective Dart style guide.
-
-
