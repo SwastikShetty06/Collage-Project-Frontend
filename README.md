@@ -124,23 +124,33 @@ assets/
 
 ## ✅ Testing
 
-Unit Tests:
-Services & utility functions using flutter_test and mockito.
+Unit Tests
+Services & utility functions using flutter_test and mockito:
+``` bash
 flutter test test/unit
-Integration Tests:
-End-to-end flows (login → upload → browse) using integration_test.
+``` 
+Integration Tests
+End-to-end flows (login → upload → browse) using integration_test:
+``` bash
 flutter test integration_test
+``` 
 
 ## 🤝 Contributing
 
 Fork this repository
 Clone your fork:
+``` bash
 git clone https://github.com/yourusername/note_sharing_app_flutter.git
+``` 
 Create a feature branch:
+``` bash
 git checkout -b feature/your-feature-name
+``` 
 Commit your changes:
+``` bash
 git commit -m "feat: add new feature"
+``` 
 Push to your fork:
+``` bash
 git push origin feature/your-feature-name
-Open a Pull Request against main.
-Please follow the Effective Dart style guide.
+``` 
