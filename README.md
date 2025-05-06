@@ -25,7 +25,6 @@
 7. [Folder Structure](#folder-structure)
 8. [Testing](#testing)
 9. [Contributing](#contributing)
-10. [License](#license)
 
 ---
 
@@ -93,7 +92,10 @@ flutter build apk --release
 
 # Build iOS app (on macOS)
 flutter build ios --release
-🧠 State Management
+
+```
+
+#### 🧠 State Management
 
 This project uses the provider package for state management:
 
@@ -102,7 +104,7 @@ NoteProvider manages note list, pagination, and search.
 UserProvider manages user profiles and social follow state.
 All providers extend ChangeNotifier and are injected via MultiProvider in main.dart.
 
-🗂 Folder Structure
+##### 🗂 Folder Structure
 
 lib/
 ├── main.dart          # App entrypoint & MultiProvider setup
@@ -114,7 +116,8 @@ lib/
 assets/
 ├── images/            # Static assets (icons, logos)
 └── configs/           # Config files (env.dart)
-✅ Testing
+
+###### ✅ Testing
 
 Unit Tests:
 Services & utility functions using flutter_test and mockito.
@@ -122,7 +125,8 @@ flutter test test/unit
 Integration Tests:
 End-to-end flows (login → upload → browse) using integration_test.
 flutter test integration_test
-🤝 Contributing
+
+###### 🤝 Contributing
 
 Fork this repository
 Clone your fork:
@@ -136,4 +140,4 @@ git push origin feature/your-feature-name
 Open a Pull Request against main.
 Please follow the Effective Dart style guide.
 
-```
+
