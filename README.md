@@ -24,7 +24,6 @@
 6. [State Management](#state-management)
 7. [Folder Structure](#folder-structure)
 8. [Testing](#testing)
-9. [Contributing](#contributing)
 
 ---
 
@@ -133,24 +132,4 @@ Integration Tests
 End-to-end flows (login → upload → browse) using integration_test:
 ``` bash
 flutter test integration_test
-``` 
-
-## 🤝 Contributing
-
-Fork this repository
-Clone your fork:
-``` bash
-git clone https://github.com/yourusername/note_sharing_app_flutter.git
-``` 
-Create a feature branch:
-``` bash
-git checkout -b feature/your-feature-name
-``` 
-Commit your changes:
-``` bash
-git commit -m "feat: add new feature"
-``` 
-Push to your fork:
-``` bash
-git push origin feature/your-feature-name
 ``` 
