@@ -118,13 +118,6 @@ class _UploadScreenState extends State<UploadScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _isUploading ? null : _upload,
-              child: _isUploading
-                  ? const SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Text('Upload'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,  // Set button background color to blue
                 foregroundColor: Colors.white,// Set button text color to white
@@ -136,6 +129,13 @@ class _UploadScreenState extends State<UploadScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
+              child: _isUploading
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Text('Upload'),
             ),
           ],
         ),

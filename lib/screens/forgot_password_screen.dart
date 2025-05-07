@@ -135,6 +135,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: _isLoading ? null : _forgotPassword,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Colors.blue, // Button color set to blue
+                        foregroundColor:
+                            Colors.white, // Button text color set to white
+                      ),
                       child:
                           _isLoading
                               ? const CircularProgressIndicator(
@@ -142,12 +148,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                 color: Colors.white,
                               )
                               : const Text('Submit'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.blue, // Button color set to blue
-                        foregroundColor:
-                            Colors.white, // Button text color set to white
-                      ),
                     ),
                     const SizedBox(height: 16),
                     if (_message.isNotEmpty)

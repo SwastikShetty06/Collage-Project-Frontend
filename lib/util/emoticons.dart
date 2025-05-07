@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Emoticons extends StatelessWidget {
   final String emoticon;
 
-  const Emoticons({Key? key, required this.emoticon}) : super(key: key);
+  const Emoticons({super.key, required this.emoticon});
 
   @override
   Widget build(BuildContext context) {

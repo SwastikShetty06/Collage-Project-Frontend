@@ -24,11 +24,11 @@ com.example.project_frontend.app-jetified-lifecycle-process-2.7.0-22 /Users/swas
 com.example.project_frontend.app-jetified-lifecycle-livedata-core-ktx-2.7.0-23 /Users/swastikshetty/.gradle/caches/8.10.2/transforms/ebeb29d7113d60e59d5e0acf92f847f3/transformed/jetified-lifecycle-livedata-core-ktx-2.7.0/res
 com.example.project_frontend.app-jetified-annotation-experimental-1.4.0-24 /Users/swastikshetty/.gradle/caches/8.10.2/transforms/f09a22cdd213028a38958888c7d16e20/transformed/jetified-annotation-experimental-1.4.0/res
 com.example.project_frontend.app-core-runtime-2.2.0-25 /Users/swastikshetty/.gradle/caches/8.10.2/transforms/ff849810dfe34a0ab790c402787c149e/transformed/core-runtime-2.2.0/res
-com.example.project_frontend.app-debug-26 /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/res
-com.example.project_frontend.app-main-27 /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/res
-com.example.project_frontend.app-debug-28 /Users/swastikshetty/Desktop/Project/project_frontend/build/android_intent_plus/intermediates/packaged_res/debug/packageDebugResources
-com.example.project_frontend.app-pngs-29 /Users/swastikshetty/Desktop/Project/project_frontend/build/app/generated/res/pngs/debug
-com.example.project_frontend.app-resValues-30 /Users/swastikshetty/Desktop/Project/project_frontend/build/app/generated/res/resValues/debug
+com.example.project_frontend.app-pngs-26 /Users/swastikshetty/Desktop/Project/project_frontend/android/app/build/generated/res/pngs/debug
+com.example.project_frontend.app-resValues-27 /Users/swastikshetty/Desktop/Project/project_frontend/android/app/build/generated/res/resValues/debug
+com.example.project_frontend.app-debug-28 /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/debug/res
+com.example.project_frontend.app-main-29 /Users/swastikshetty/Desktop/Project/project_frontend/android/app/src/main/res
+com.example.project_frontend.app-debug-30 /Users/swastikshetty/Desktop/Project/project_frontend/build/android_intent_plus/intermediates/packaged_res/debug/packageDebugResources
 com.example.project_frontend.app-packageDebugResources-31 /Users/swastikshetty/Desktop/Project/project_frontend/build/app/intermediates/incremental/debug/packageDebugResources/merged.dir
 com.example.project_frontend.app-packageDebugResources-32 /Users/swastikshetty/Desktop/Project/project_frontend/build/app/intermediates/incremental/debug/packageDebugResources/stripped.dir
 com.example.project_frontend.app-debug-33 /Users/swastikshetty/Desktop/Project/project_frontend/build/app/intermediates/merged_res/debug/mergeDebugResources
@@ -36,4 +36,5 @@ com.example.project_frontend.app-debug-34 /Users/swastikshetty/Desktop/Project/p
 com.example.project_frontend.app-debug-35 /Users/swastikshetty/Desktop/Project/project_frontend/build/flutter_pdfview/intermediates/packaged_res/debug/packageDebugResources
 com.example.project_frontend.app-debug-36 /Users/swastikshetty/Desktop/Project/project_frontend/build/flutter_plugin_android_lifecycle/intermediates/packaged_res/debug/packageDebugResources
 com.example.project_frontend.app-debug-37 /Users/swastikshetty/Desktop/Project/project_frontend/build/open_file_android/intermediates/packaged_res/debug/packageDebugResources
-com.example.project_frontend.app-debug-38 /Users/swastikshetty/Desktop/Project/project_frontend/build/url_launcher_android/intermediates/packaged_res/debug/packageDebugResources
+com.example.project_frontend.app-debug-38 /Users/swastikshetty/Desktop/Project/project_frontend/build/path_provider_android/intermediates/packaged_res/debug/packageDebugResources
+com.example.project_frontend.app-debug-39 /Users/swastikshetty/Desktop/Project/project_frontend/build/url_launcher_android/intermediates/packaged_res/debug/packageDebugResources

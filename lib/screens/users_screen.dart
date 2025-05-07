@@ -3,7 +3,7 @@ import '../services/auth_service.dart';
 
 class UsersScreen extends StatefulWidget {
   final String userId;
-  const UsersScreen({Key? key, required this.userId}) : super(key: key);
+  const UsersScreen({super.key, required this.userId});
 
   @override
   _UsersScreenState createState() => _UsersScreenState();

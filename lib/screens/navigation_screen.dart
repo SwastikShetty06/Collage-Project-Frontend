@@ -8,7 +8,7 @@ import 'home_page.dart';
 class NavigationScreen extends StatefulWidget {
   final String userId;
 
-  const NavigationScreen({Key? key, required this.userId}) : super(key: key);
+  const NavigationScreen({super.key, required this.userId});
 
   @override
   NavigationScreenState createState() => NavigationScreenState();

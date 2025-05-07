@@ -141,6 +141,12 @@ class _LoginScreenState extends State<LoginScreen>
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: _isLoading ? null : _login,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Colors.blue, // Set the button color to blue
+                        foregroundColor:
+                            Colors.white, // Set the button text color to white
+                      ),
                       child:
                           _isLoading
                               ? const CircularProgressIndicator(
@@ -148,12 +154,6 @@ class _LoginScreenState extends State<LoginScreen>
                                 color: Colors.white,
                               )
                               : const Text('Login'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.blue, // Set the button color to blue
-                        foregroundColor:
-                            Colors.white, // Set the button text color to white
-                      ),
                     ),
                     const SizedBox(height: 12),
                     // New button for Forgot Password

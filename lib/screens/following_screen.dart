@@ -4,7 +4,7 @@ import '../services/auth_service.dart';
 class FollowingScreen extends StatefulWidget {
   final String userId;
 
-  const FollowingScreen({Key? key, required this.userId}) : super(key: key);
+  const FollowingScreen({super.key, required this.userId});
 
   @override
   _FollowingScreenState createState() => _FollowingScreenState();
@@ -16,7 +16,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
   bool _showFollowing = true;
   String _error = '';
   List<dynamic> _users = [];
-  Set<int> _actionUserIds = {};
+  final Set<int> _actionUserIds = {};
 
   @override
   void initState() {

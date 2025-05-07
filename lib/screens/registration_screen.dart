@@ -144,13 +144,6 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                     // Register button
                     ElevatedButton(
                       onPressed: _isLoading ? null : _register,
-                      child:
-                          _isLoading
-                              ? const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              )
-                              : const Text('Register'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             Colors.blue, // Button background set to blue
@@ -164,6 +157,13 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
+                      child:
+                          _isLoading
+                              ? const CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              )
+                              : const Text('Register'),
                     ),
                   ],
                 ),

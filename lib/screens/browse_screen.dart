@@ -197,9 +197,9 @@ class _BrowseScreenState extends State<BrowseScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToUpload,
-        child: const Icon(Icons.upload_file),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        child: const Icon(Icons.upload_file),
         // Floating action button color
       ),
     );

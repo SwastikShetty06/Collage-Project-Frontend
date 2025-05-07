@@ -119,9 +119,9 @@ class _DocumentViewScreenState extends State<DocumentViewScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _downloadFile,
-        child: const Icon(Icons.download),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        child: const Icon(Icons.download),
       ),
     );
   }
