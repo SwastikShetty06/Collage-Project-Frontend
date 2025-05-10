@@ -33,9 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _loadUserData() async {
     setState(() => _isLoading = true);
     try {
-      final response = await _authService.fetchProfile(
-        int.parse(widget.userId),
-      );
+      final response =
+      await _authService.fetchProfile(int.parse(widget.userId));
       setState(() {
         _user = response;
         _collegeController.text = _user?['collegeName'] ?? '';
@@ -49,16 +48,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } finally {
       setState(() => _isLoading = false);
     }
-  }
-
-  Color _generateRandomColor() {
-    final random = Random();
-    return Color.fromRGBO(
-      random.nextInt(256),
-      random.nextInt(256),
-      random.nextInt(256),
-      1,
-    );
   }
 
   void _toggleEditMode() {
@@ -122,200 +111,198 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-        backgroundColor: Colors.blue, // Set the AppBar color to blue
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 30, left: 16, right: 16),
-        child:
-            _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 120, bottom: 120),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Avatar
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundColor: _generateRandomColor(),
-                          child: Text(
-                            _user?['fullName'][0] ?? '',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        // Name & Email
-                        Text(
-                          'Welcome, ${_user?['fullName'] ?? ''}',
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                height: 260,
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(60),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                top: 60,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 45,
+                        backgroundColor: Colors.white,
+                        child: Text(
+                          _user?['fullName'][0] ?? '',
                           style: const TextStyle(
-                            fontSize: 20,
+                            color: Colors.blue,
+                            fontSize: 36,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Email: ${_user?['email'] ?? ''}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[700],
-                          ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        _user?['fullName'] ?? '',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
                         ),
-                        const SizedBox(height: 20),
-
-                        // Edit Mode Fields
-                        if (_isEditing) ...[
-                          if (_message.isNotEmpty)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                _message,
-                                style: TextStyle(
-                                  color:
-                                      _message.contains('updated') ||
-                                              _message.contains('success')
-                                          ? Colors.green
-                                          : Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          _buildTextField(_collegeController, 'College Name'),
-                          _buildTextField(
-                            _universityController,
-                            'University Name',
-                          ),
-                          _buildTextField(_courseController, 'Course Name'),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            onPressed: _updateProfile,
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 50,
-                                vertical: 12,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              backgroundColor: Colors.blue,
-                              foregroundColor:
-                                  Colors.white, // Button color set to blue
-                            ),
-                            child: const Text('Update Profile'),
-                          ),
-                          const SizedBox(height: 16),
-                          _buildTextField(
-                            _passwordController,
-                            'New Password',
-                            obscure: true,
-                          ),
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: _changePassword,
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 50,
-                                vertical: 12,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              backgroundColor: Colors.blue,
-                              foregroundColor: Colors.white,
-                            ),
-                            child: const Text('Change Password'),
-                          ),
-                        ] else ...[
-                          // Display Mode
-                          Text('College: ${_user?['collegeName'] ?? 'N/A'}'),
-                          const SizedBox(height: 8),
-                          Text(
-                            'University: ${_user?['universityName'] ?? 'N/A'}',
-                          ),
-                          const SizedBox(height: 8),
-                          Text('Course: ${_user?['courseName'] ?? 'N/A'}'),
-                        ],
-
-                        const SizedBox(height: 20),
-                        // Buttons side by side
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              onPressed: _toggleEditMode,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 30,
-                                  vertical: 12,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                              child: Text(
-                                _isEditing ? 'Exit Edit' : 'Edit Profile',
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            ElevatedButton(
-                              onPressed: _logout,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 30,
-                                  vertical: 12,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                              child: const Text('Logout'),
-                            ),
-                          ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        _user?['email'] ?? '',
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  if (_isEditing) ...[
+                    if (_message.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: Text(
+                          _message,
+                          style: TextStyle(
+                            color: _message.contains('updated') ||
+                                _message.contains('success')
+                                ? Colors.green
+                                : Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    _buildTextField(_collegeController, 'College Name'),
+                    _buildTextField(
+                        _universityController, 'University Name'),
+                    _buildTextField(_courseController, 'Course Name'),
+                    ElevatedButton(
+                      onPressed: _updateProfile,
+                      style: _blueButtonStyle(),
+                      child: const Text('Update Profile'),
+                    ),
+                    _buildTextField(_passwordController, 'New Password',
+                        obscure: true),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: _changePassword,
+                      style: _blueButtonStyle(),
+                      child: const Text('Change Password'),
+                    ),
+                  ] else ...[
+                    _buildInfoCard('Email', _user?['email']),
+                    _buildInfoCard('College', _user?['collegeName']),
+                    _buildInfoCard('University', _user?['universityName']),
+                    _buildInfoCard('Course', _user?['courseName']),
+                  ],
+                  const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: _toggleEditMode,
+                        style: _blueButtonStyle(),
+                        child: Text(_isEditing ? 'Cancel' : 'Edit'),
+                      ),
+                      const SizedBox(width: 16),
+                      ElevatedButton(
+                        onPressed: _logout,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text('Logout'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildTextField(
-    TextEditingController controller,
-    String label, {
-    bool obscure = false,
-  }) {
+  Widget _buildTextField(TextEditingController controller, String label,
+      {bool obscure = false}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
         controller: controller,
         obscureText: obscure,
         decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          prefixIcon: const Icon(Icons.edit),
+          hintText: label,
+          prefixIcon: const Icon(Icons.edit, color: Colors.blue),
+          border: const OutlineInputBorder(),
         ),
+      ),
+    );
+  }
+
+  Widget _buildInfoCard(String label, String? value) {
+    IconData icon;
+    switch (label) {
+      case 'Email':
+        icon = Icons.email;
+        break;
+      case 'College':
+        icon = Icons.school;
+        break;
+      case 'University':
+        icon = Icons.location_city;
+        break;
+      case 'Course':
+        icon = Icons.book;
+        break;
+      default:
+        icon = Icons.info;
+    }
+
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: Icon(icon, color: Colors.blue),
+        title: Text(
+          label,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(value ?? 'N/A'),
+      ),
+    );
+  }
+
+  ButtonStyle _blueButtonStyle() {
+    return ElevatedButton.styleFrom(
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
       ),
     );
   }

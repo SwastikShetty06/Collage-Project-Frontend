@@ -22,7 +22,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   List<dynamic> _documents = [];
   bool _isFollowing = false;
   bool _isLoading = true;
-  bool _isActionLoading = false; // For follow/unfollow button spinner
+  bool _isActionLoading = false;
 
   @override
   void initState() {
@@ -45,9 +45,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       });
     } catch (e) {
       debugPrint('Failed to load profile: $e');
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error loading profile: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error loading profile: $e')),
+      );
     } finally {
       setState(() => _isLoading = false);
     }
@@ -62,21 +62,18 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     try {
       if (_isFollowing) {
         await _authService.unfollowUser(followerId, widget.profileUserId);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Unfollowed')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Unfollowed')));
       } else {
         await _authService.followUser(followerId, widget.profileUserId);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Followed')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Followed')));
       }
       setState(() => _isFollowing = !_isFollowing);
     } catch (e) {
       debugPrint('Follow/Unfollow error: $e');
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error: $e')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
     } finally {
       setState(() => _isActionLoading = false);
     }
@@ -89,125 +86,184 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${_user?['fullName']}\'s Profile'),
-        backgroundColor: Colors.blue,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            // Profile header row
-            Row(
+      backgroundColor: const Color(0xFFFDF8FF),
+      body: Column(
+        children: [
+          // Header
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(top: 60, bottom: 30),
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(50),
+              ),
+            ),
+            child: Stack(
               children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.black,
-                  child: Text(
-                    (_user?['fullName'] ?? '').isNotEmpty
-                        ? _user!['fullName'][0].toUpperCase()
-                        : '',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                Positioned(
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
+
+                // Centered profile info
+                Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 10),
+                      CircleAvatar(
+                        radius: 35,
+                        backgroundColor: Colors.white,
+                        child: Text(
+                          (_user?['fullName'] ?? '').isNotEmpty
+                              ? _user!['fullName'][0].toUpperCase()
+                              : '',
+                          style: const TextStyle(
+                            fontSize: 26,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       Text(
                         _user?['fullName'] ?? '',
                         style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      Text(_user?['email'] ?? ''),
-                      if (_user?['collegeName'] != null)
-                        Text('College: ${_user!['collegeName']}'),
-                      if (_user?['universityName'] != null)
-                        Text('University: ${_user!['universityName']}'),
-                      if (_user?['courseName'] != null)
-                        Text('Course: ${_user!['courseName']}'),
+                      Text(
+                        _user?['email'] ?? '',
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      ElevatedButton(
+                        onPressed: _toggleFollow,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _isFollowing ? Colors.red : Colors.white,
+                          foregroundColor: _isFollowing ? Colors.white : Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        ),
+                        child: _isActionLoading
+                            ? const SizedBox(
+                          height: 18,
+                          width: 18,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.blue,
+                          ),
+                        )
+                            : Text(_isFollowing ? 'Unfollow' : 'Follow'),
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: _toggleFollow,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _isFollowing ? Colors.red : Colors.blue,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                  ),
-                  child:
-                      _isActionLoading
-                          ? const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                          : Text(_isFollowing ? 'Unfollow' : 'Follow'),
-                ),
               ],
             ),
+          ),
 
-            const SizedBox(height: 20),
-            const Divider(),
 
-            // Documents section
-            const Align(
+          // Profile Info
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                if (_user?['collegeName'] != null)
+                  Row(
+                    children: [
+                      const Icon(Icons.school, color: Colors.blue),
+                      const SizedBox(width: 8),
+                      Text('College: ${_user!['collegeName']}'),
+                    ],
+                  ),
+                if (_user?['universityName'] != null)
+                  Row(
+                    children: [
+                      const Icon(Icons.location_city, color: Colors.blue),
+                      const SizedBox(width: 8),
+                      Text('University: ${_user!['universityName']}'),
+                    ],
+                  ),
+                if (_user?['courseName'] != null)
+                  Row(
+                    children: [
+                      const Icon(Icons.book, color: Colors.blue),
+                      const SizedBox(width: 8),
+                      Text('Course: ${_user!['courseName']}'),
+                    ],
+                  ),
+              ],
+            ),
+          ),
+
+          const Divider(),
+
+          // Documents
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 'Uploaded Documents',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 8),
-            Expanded(
-              child:
-                  _documents.isEmpty
-                      ? const Center(child: Text('No documents uploaded yet.'))
-                      : ListView.builder(
-                        itemCount: _documents.length,
-                        itemBuilder: (context, index) {
-                          final doc = _documents[index];
-                          final url = doc['fileUrl'] as String? ?? '';
-                          final isPdf = url.toLowerCase().endsWith('.pdf');
-                          return ListTile(
-                            title: Text(doc['title'] ?? ''),
-                            leading: Icon(
-                              isPdf ? Icons.picture_as_pdf : Icons.image,
-                              color: Colors.blue,
-                            ),
-                            onTap:
-                                () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder:
-                                        (_) => DocumentViewScreen(
-                                          fileUrl: url,
-                                          title: doc['title'] ?? '',
-                                        ),
-                                  ),
-                                ),
-                          );
-                        },
-                      ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: _documents.isEmpty
+                ? const Center(child: Text('No documents uploaded yet.'))
+                : ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              itemCount: _documents.length,
+              itemBuilder: (context, index) {
+                final doc = _documents[index];
+                final url = doc['fileUrl'] as String? ?? '';
+                final isPdf = url.toLowerCase().endsWith('.pdf');
+                return Card(
+                  margin:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 2,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 8, horizontal: 16),
+                    title: Text(doc['title'] ?? ''),
+                    leading: Icon(
+                      isPdf ? Icons.picture_as_pdf : Icons.image,
+                      color: Colors.blue,
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => DocumentViewScreen(
+                            fileUrl: url,
+                            title: doc['title'] ?? '',
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

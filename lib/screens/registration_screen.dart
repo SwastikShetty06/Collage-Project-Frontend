@@ -8,8 +8,7 @@ class RegistrationScreen extends StatefulWidget {
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen>
-    with SingleTickerProviderStateMixin {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   final AuthService _authService = AuthService();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -17,46 +16,31 @@ class _RegistrationScreenState extends State<RegistrationScreen>
   final _bestFriendController = TextEditingController();
 
   bool _isLoading = false;
-  String _error = '';
-
-  late final AnimationController _fadeController;
-  late final Animation<double> _fadeAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _fadeController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
-    _fadeAnimation = CurvedAnimation(
-      parent: _fadeController,
-      curve: Curves.easeIn,
-    );
-    _fadeController.forward();
-  }
-
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _bestFriendController.dispose();
-    super.dispose();
-  }
 
   void _register() async {
+    // Validate empty fields
+    if (_nameController.text.trim().isEmpty ||
+        _emailController.text.trim().isEmpty ||
+        _passwordController.text.trim().isEmpty ||
+        _bestFriendController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill out all fields.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     setState(() {
       _isLoading = true;
-      _error = '';
     });
 
     final result = await _authService.register(
       _nameController.text.trim(),
       _emailController.text.trim(),
       _passwordController.text.trim(),
-      _bestFriendController.text.trim(), // New field sent to backend
+      _bestFriendController.text.trim(),
     );
 
     setState(() => _isLoading = false);
@@ -64,113 +48,153 @@ class _RegistrationScreenState extends State<RegistrationScreen>
     if (result != null) {
       Navigator.pushReplacementNamed(context, '/');
     } else {
-      setState(() => _error = 'Registration failed.');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Registration failed. Please try again.'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
+  }
+
+  Widget _buildInputField({
+    required String label,
+    required IconData icon,
+    required TextEditingController controller,
+    bool obscure = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: TextField(
+        controller: controller,
+        obscureText: obscure,
+        decoration: InputDecoration(
+          prefixIcon: Container(
+            margin: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade100,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, color: Colors.blue),
+          ),
+          labelText: label,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'), // Set AppBar color to blue
-      ),
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Card(
-              elevation: 8,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+      backgroundColor: const Color(0xFFFDF8FF),
+      body: Column(
+        children: [
+          // Blue header with back button, icon, and title
+          Container(
+            width: double.infinity,
+            height: 300,
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(60),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 32,
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 50,
+                  left: 16,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue, // Title text color set to blue
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      CircleAvatar(
+                        radius: 36,
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.person_add_alt_1, color: Colors.blue, size: 36),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    if (_error.isNotEmpty)
-                      Text(_error, style: const TextStyle(color: Colors.red)),
-                    const SizedBox(height: 10),
-                    // Name field
-                    TextField(
-                      controller: _nameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Name',
-                        prefixIcon: Icon(Icons.person),
+                      SizedBox(height: 16),
+                      Text(
+                        'Create Account',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    // Email field
-                    TextField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        labelText: 'Email',
-                        prefixIcon: Icon(Icons.email),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    // Password field
-                    TextField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        labelText: 'Password',
-                        prefixIcon: Icon(Icons.lock),
-                      ),
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 16),
-                    // Best friend's name field
-                    TextField(
-                      controller: _bestFriendController,
-                      decoration: const InputDecoration(
-                        labelText: 'Best Friend\'s Name',
-                        prefixIcon: Icon(Icons.favorite),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    // Register button
-                    ElevatedButton(
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Registration form
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+              child: Column(
+                children: [
+                  _buildInputField(
+                    label: 'Full Name',
+                    icon: Icons.person,
+                    controller: _nameController,
+                  ),
+                  _buildInputField(
+                    label: 'Email',
+                    icon: Icons.email,
+                    controller: _emailController,
+                  ),
+                  _buildInputField(
+                    label: 'Password',
+                    icon: Icons.lock,
+                    controller: _passwordController,
+                    obscure: true,
+                  ),
+                  _buildInputField(
+                    label: "Best Friend's Name",
+                    icon: Icons.favorite,
+                    controller: _bestFriendController,
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
                       onPressed: _isLoading ? null : _register,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.blue, // Button background set to blue
-                        foregroundColor:
-                            Colors.white, // Text color set to white
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 50,
-                          vertical: 12,
-                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child:
-                          _isLoading
-                              ? const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              )
-                              : const Text('Register'),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      )
+                          : const Text(
+                        'Register',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

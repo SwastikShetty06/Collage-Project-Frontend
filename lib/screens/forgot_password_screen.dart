@@ -4,6 +4,7 @@ import 'login_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
+
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
@@ -48,16 +49,29 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
       _isLoading = true;
       _message = '';
     });
+
+    // Validation check to ensure all fields are filled
+    if (_emailController.text.trim().isEmpty ||
+        _bestFriendController.text.trim().isEmpty ||
+        _newPasswordController.text.trim().isEmpty) {
+      setState(() {
+        _isLoading = false;
+        _message = 'Please fill in all fields.';
+      });
+      return;
+    }
+
     final response = await _authService.forgotPassword(
       _emailController.text.trim(),
       _bestFriendController.text.trim(),
       _newPasswordController.text.trim(),
     );
+
     setState(() {
       _isLoading = false;
       _message = response['message'] ?? 'Unknown error occurred';
     });
-    // If success, navigate back to login after a short delay.
+
     if (_message.contains("successfully")) {
       Future.delayed(const Duration(seconds: 2), () {
         Navigator.pushReplacement(
@@ -71,93 +85,105 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Forgot Password')),
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: FadeTransition(
         opacity: _fadeAnimation,
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Card(
-              elevation: 8,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 32,
+        child: Column(
+          children: [
+            Expanded(
+              flex: 4,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(60),
+                  ),
                 ),
+                width: double.infinity,
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      'Reset Password',
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.white,
+                      child: Icon(Icons.lock_reset, size: 40, color: Colors.blue),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Reset Password",
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 22,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue, // Title color set to blue
                       ),
                     ),
-                    const SizedBox(height: 16),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 6,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children: [
                     TextField(
                       controller: _emailController,
                       decoration: const InputDecoration(
-                        labelText: 'Email',
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: Colors.blue,
-                        ), // Icon color set to blue
+                        hintText: 'Email',
+                        prefixIcon: Icon(Icons.email, color: Colors.blue),
                       ),
                     ),
                     const SizedBox(height: 16),
                     TextField(
                       controller: _bestFriendController,
                       decoration: const InputDecoration(
-                        labelText: 'Best Friend\'s Name',
-                        prefixIcon: Icon(
-                          Icons.favorite,
-                          color: Colors.blue,
-                        ), // Icon color set to blue
+                        hintText: "Best Friend's Name",
+                        prefixIcon: Icon(Icons.favorite, color: Colors.blue),
                       ),
                     ),
                     const SizedBox(height: 16),
                     TextField(
                       controller: _newPasswordController,
-                      decoration: const InputDecoration(
-                        labelText: 'New Password',
-                        prefixIcon: Icon(
-                          Icons.lock_outline,
-                          color: Colors.blue,
-                        ), // Icon color set to blue
-                      ),
                       obscureText: true,
+                      decoration: const InputDecoration(
+                        hintText: 'New Password',
+                        prefixIcon: Icon(Icons.lock_outline, color: Colors.blue),
+                      ),
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: _isLoading ? null : _forgotPassword,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.blue, // Button color set to blue
-                        foregroundColor:
-                            Colors.white, // Button text color set to white
+                        minimumSize: const Size.fromHeight(50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        backgroundColor: Colors.blue,
                       ),
-                      child:
-                          _isLoading
-                              ? const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              )
-                              : const Text('Submit'),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      )
+                          : const Text("Submit", style: TextStyle(fontSize: 18, color: Colors.white)),
                     ),
                     const SizedBox(height: 16),
                     if (_message.isNotEmpty)
                       Text(
                         _message,
                         style: TextStyle(
-                          color:
-                              _message.contains("successfully")
-                                  ? Colors.green
-                                  : Colors.red,
+                          color: _message.contains("successfully")
+                              ? Colors.green
+                              : Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -165,7 +191,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
