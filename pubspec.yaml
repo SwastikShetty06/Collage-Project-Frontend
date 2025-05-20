@@ -1,0 +1,43 @@
+name: project_frontend
+description: "A new Flutter project."
+publish_to: "none" # This project is not published to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.6
+  cupertino_icons: ^1.0.8
+  file_picker: ^8.1.6
+  flutter_plugin_android_lifecycle: ^2.0.6
+  dio: ^5.0.2
+  open_file: ^3.2.1
+  url_launcher: ^6.1.7
+  android_intent_plus: ^4.0.2
+  intl: ^0.18.1
+  flutter_pdfview: 1.3.2
+  path_provider: ^2.0.15
+  device_info_plus: ^9.0.0
+  pdf: ^3.10.4
+  printing: ^5.12.0
+  lottie: ^2.7.0
+  google_fonts: ^4.0.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  provider: ^6.0.5
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/a.json
+    - assets/b.json
+    - assets/c.json

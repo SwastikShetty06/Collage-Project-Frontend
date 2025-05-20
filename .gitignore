@@ -1,0 +1,20 @@
+# .gitignore
+build/
+.android/
+ios/Flutter/Flutter.framework
+.flutter-plugins
+.dart_tool/
+.packages
+.idea/
+.DS_Store
+node_modules/
+.next/
+dist/
+build/
+.screenshots/
+build/
+*.apk
+*.mov
+*.dill
+.dart_tool/
+android/app/build/
