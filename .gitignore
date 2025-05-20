@@ -10,11 +10,4 @@ ios/Flutter/Flutter.framework
 node_modules/
 .next/
 dist/
-build/
 .screenshots/
-build/
-*.apk
-*.mov
-*.dill
-.dart_tool/
-android/app/build/
