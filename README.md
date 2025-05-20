@@ -45,7 +45,7 @@ This Flutter frontend powers the Note Sharing App—a platform to upload and dis
 ## 📸 App demo
 
 <p align="center">
-  <video src="screenshots/video.mov" alt="Browse Notes" width="180px" style="margin-right: 10px;"/>
+  <img src="screenshots/video.gif" alt="App Demo"/>
 </p>
 
 ---
