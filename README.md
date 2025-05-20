@@ -14,14 +14,15 @@
 1. [About](#about)
 2. [Features](#features)
 3. [Screenshots](#screenshots)
-4. [Tech Stack](#tech-stack)
-5. [Getting Started](#getting-started)
+4. [Backend Integration](#backend-integration)
+5. [Tech Stack](#tech-stack)
+6. [Getting Started](#getting-started)
    - [Prerequisites](#prerequisites)
    - [Install & Run](#install--run)
    - [Release Build](#release-build)
-6. [State Management](#state-management)
-7. [Folder Structure](#folder-structure)
-8. [Testing](#testing)
+7. [State Management](#state-management)
+8. [Folder Structure](#folder-structure)
+9. [Testing](#testing)
 
 ---
 
@@ -33,12 +34,12 @@ This Flutter frontend powers the Note Sharing App—a platform to upload and dis
 
 ## ✨ Features
 
-- 📤 **Upload** PDFs & images with title & keywords
-- 🔎 **Search** by title or keywords (infinite scroll)
-- 👥 **Social**: follow peers & view a personalized feed
-- 🔄 **Profile**: update college, university, course anytime
-- ⚡ **Performance**: <2 s load on mid-tier Android devices
-- 📱 **Responsive UI** built entirely with Flutter widgets
+- 📤 **Upload** PDFs & images with title & keywords  
+- 🔎 **Search** by title or keywords (infinite scroll)  
+- 👥 **Social**: follow peers & view a personalized feed  
+- 🔄 **Profile**: update college, university, course anytime  
+- ⚡ **Performance**: <2 s load on mid-tier Android devices  
+- 📱 **Responsive UI** built entirely with Flutter widgets  
 
 ---
 
@@ -47,6 +48,23 @@ This Flutter frontend powers the Note Sharing App—a platform to upload and dis
 <p align="center">
   <img src="screenshots/video.gif" alt="App Demo"/>
 </p>
+
+---
+
+## 🧩 Backend Integration
+
+This Flutter frontend is powered by a Spring Boot backend that manages user authentication, note storage, and real-time interactions.
+
+🔗 **Backend Repository:** [Collage-Project-Backend (Spring Boot)](https://github.com/SwastikShetty06/Collage-Project-Backend)
+
+### Backend Features:
+- ✅ JWT-based authentication & authorization  
+- 📁 Upload & manage notes (PDFs/images)  
+- 🔎 Search functionality with keyword indexing  
+- 👥 User profiles & follow system  
+- 📊 REST APIs for frontend consumption  
+
+> ⚠️ Make sure the backend is running and API base URL is correctly configured in your frontend (e.g., in `env.dart` or constants).
 
 ---
 
@@ -66,8 +84,9 @@ This Flutter frontend powers the Note Sharing App—a platform to upload and dis
 
 ### Prerequisites
 
-- Flutter 3.7.x & Dart 2.19
-- Android SDK & emulator or physical device
+- Flutter 3.7.x & Dart 2.19  
+- Android SDK & emulator or physical device  
+- Spring Boot backend server (see [Backend Integration](#backend-integration))
 
 ### Install & Run
 
@@ -81,51 +100,3 @@ flutter pub get
 
 # 3. Run on emulator or device
 flutter run
-Release Build
-# Build APK for release
-flutter build apk --release
-
-# Build iOS app (on macOS)
-flutter build ios --release
-
-```
-
-## 🧠 State Management
-
-This project uses the `provider` package for state management:
-
-- `AuthProvider` handles user authentication state.
-- `NoteProvider` manages note list, pagination, and search.
-- `UserProvider` manages user profiles and social follow state.
-
-All providers extend `ChangeNotifier` and are injected via `MultiProvider` in `main.dart`.
-
----
-
-## 🗂 Folder Structure
-
-```plaintext
-lib/
-├── main.dart          # App entrypoint & MultiProvider setup
-├── services/          # API service classes (AuthService, NoteService)
-├── providers/         # ChangeNotifier classes
-├── screens/           # UI screens (Login, Register, Browse, Upload, Profile)
-├── widgets/           # Reusable widgets (NoteCard, CustomAppBar)
-└── utils/             # Constants, themes, helpers
-assets/
-├── images/            # Static assets (icons, logos)
-└── configs/           # Config files (env.dart)
-```
-
-## ✅ Testing
-
-Unit Tests
-Services & utility functions using flutter_test and mockito:
-``` bash
-flutter test test/unit
-``` 
-Integration Tests
-End-to-end flows (login → upload → browse) using integration_test:
-``` bash
-flutter test integration_test
-``` 
