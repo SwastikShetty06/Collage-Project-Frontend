@@ -4,6 +4,7 @@
 
 [![Flutter Version](https://img.shields.io/badge/Flutter-3.7.x-blue.svg)](https://flutter.dev)  
 [![Dart Version](https://img.shields.io/badge/Dart-2.19-green.svg)](https://dart.dev)  
+[![LinkedIn](https://custom-icon-badges.demolab.com/badge/LinkedIn-0A66C2?logo=linkedin-white&logoColor=fff)](https://www.linkedin.com/in/swastikshetty06/)
 
 > A mobile-first Flutter application for seamless uploading, browsing, and sharing of study notes.
 
