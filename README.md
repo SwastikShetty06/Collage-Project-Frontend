@@ -101,18 +101,24 @@ flutter pub get
 flutter run
 ```
 
-### Code Contributors
+### 🚀 Code Contributors
 
-<a href="https://github.com/SwastikShetty06/Collage-Project-Frontend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=SwastikShetty06/Collage-Project-Frontend" />
-</a>
-
-<!-- Manually added contributor -->
-<a href="https://github.com/sanvishetty48">
-  <img src="https://avatars.githubusercontent.com/u/158359397?v=4" width="100px;" alt="sanvishetty48"/>
-  <br />
-  <sub><b>sanvishetty48</b></sub>
-</a>
+<table>
+  <tr align="center">
+    <td>
+      <a href="https://github.com/SwastikShetty06">
+        <img src="https://avatars.githubusercontent.com/u/107469848?v=4" width="100px;" alt="Swastik Shetty"/>
+        <br /><sub><b>Swastik Shetty</b></sub>
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/sanvishetty48">
+        <img src="https://avatars.githubusercontent.com/u/158359397?v=4" width="100px;" alt="Sanvi Shetty"/>
+        <br /><sub><b>Sanvi Shetty</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
