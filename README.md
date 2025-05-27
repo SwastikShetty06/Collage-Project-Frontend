@@ -104,8 +104,11 @@ flutter run
 ### 🤝 Collaborators
 
 <a href="https://github.com/SwastikShetty06/Collage-Project-Frontend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=SwastikShetty06/Collage-Project-Frontend" alt="contrib.rocks image" />
-   <img src="https://contrib.rocks/image?repo=sanvishetty48/Collage-Project-Frontend" alt="contrib.rocks image" />
+  <img src="https://contrib.rocks/image?repo=SwastikShetty06/Collage-Project-Frontend" alt="GitHub contributors" />
+</a>
+
+<a href="https://github.com/sanvishetty48">
+  <img src="https://avatars.githubusercontent.com/u/158359397?v=4" width="60px" alt="Sanvi Shetty" title="Sanvi Shetty"/>
 </a>
 
 
