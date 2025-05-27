@@ -99,3 +99,12 @@ flutter pub get
 
 # 3. Run on emulator or device
 flutter run
+```
+
+### Contributors:
+
+<a href="https://github.com/SwastikShetty06/Collage-Project-Frontend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=SwastikShetty06/Collage-Project-Frontend" alt="contrib.rocks image" />
+</a>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
